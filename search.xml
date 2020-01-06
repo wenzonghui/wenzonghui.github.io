@@ -123,25 +123,25 @@
 <table>
 <thead>
 <tr>
-<th align="left">Item</th>
-<th align="right">Value</th>
-<th align="center">Qty</th>
+<th>Item</th>
+<th>Value</th>
+<th>Qty</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">Computer</td>
-<td align="right">1600 USD</td>
-<td align="center">5</td>
+<td>Computer</td>
+<td>1600 USD</td>
+<td>5</td>
 </tr>
 <tr>
-<td align="left">Phone</td>
-<td align="right">12 USD</td>
-<td align="center">12</td>
+<td>Phone</td>
+<td>12 USD</td>
+<td>12</td>
 </tr>
 <tr>
-<td align="left">Pipe</td>
-<td align="right">1 USD</td>
-<td align="center">234</td>
+<td>Pipe</td>
+<td>1 USD</td>
+<td>234</td>
 </tr>
 </tbody></table>
 <script>
