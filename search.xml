@@ -1,152 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>博客搭建</title>
-    <url>/ri-zhi/hello-world/</url>
-    <content><![CDATA[<hr>
-<p>##博客搭建<br>经过几天的学习，成功搭建了这个博客。以后就作为自己记录和分享的后花园。希望自己能够成为这个行业的大牛，也能够通过自己的分享来帮助后来人。</p>
-<h3 id="博客分为：日志、分类、标签、关于等几项内容"><a href="#博客分为：日志、分类、标签、关于等几项内容" class="headerlink" title="博客分为：日志、分类、标签、关于等几项内容"></a>博客分为：日志、分类、标签、关于等几项内容</h3><pre class=" language-html"><code class="language-html">日志：用来记录生活琐事，所想所感
-分类：通过标签来将文章分类
-标签：来标识文章</code></pre>
-<h3 id="此博客使用markdown"><a href="#此博客使用markdown" class="headerlink" title="此博客使用markdown"></a>此博客使用markdown</h3><h5 id="以下为markdown学习笔记"><a href="#以下为markdown学习笔记" class="headerlink" title="以下为markdown学习笔记"></a>以下为markdown学习笔记</h5><p><strong>1、标题</strong><br>标题的语法是：# 标题。前面的#号个数表示标题的级别，1个#表示一级标题，2个#号表示二级标题，以次类推，最多6级。如下所示，括号内容表示在markdown中输入的内容。</p>
-<pre class=" language-ruby"><code class="language-ruby"><span class="token comment" spellcheck="true">#       一级标题</span>
-<span class="token comment" spellcheck="true">##      二级标题</span>
-<span class="token comment" spellcheck="true">###     三级标题</span>
-<span class="token comment" spellcheck="true">####    四级标题</span>
-<span class="token comment" spellcheck="true">#####   五级标题</span>
-<span class="token comment" spellcheck="true">######  六级标题</span></code></pre>
-<p><strong>2、列表</strong></p>
-<p><strong>2.1</strong> 有序列表，格式是：1. xxx 即，数字接着一个英文句点开头。</p>
-<pre class=" language-html"><code class="language-html">1. Item1
-2. Item2
-    2.1. Item2.1
-    2.2. Item2.2</code></pre>
-<p><strong>2.2</strong> 无序列表，格式是：以“-”或“*”或“+”开头即可。注意，开头符号与内容之间有一个空格！</p>
-<ul>
-<li>Item1     <code>- Item1</code></li>
-</ul>
-<ul>
-<li>Item2     <code>+ Item2</code></li>
-</ul>
-<ul>
-<li>Item3     <code>* Item3</code></li>
-</ul>
-<p><strong>3、强调</strong></p>
-<p><em>这是斜体</em>      <code>*这是斜体*</code><br><em>这是斜体</em>      <code>_这是斜体_</code><br><strong>这是加粗</strong>    <code>**这是加粗**</code><br><strong>这是加粗</strong>    <code>__这是加粗__</code><br><del>这是删除</del>    <code>~~这是删除~~</code></p>
-<p><strong>4、代码引用</strong></p>
-<p><strong>4.1</strong> 引用讲话<br>正如xxx所说：</p>
-<blockquote>
-<p>balabalabala<br>bbbbbbbbbbbbbbbbb</p>
-</blockquote>
-<p><strong>4.2</strong> 一行代码可以用“ ` ”号将代码包围起来。<br>例如：<code>这是一行代码</code><br><code>this is a line of code</code></p>
-<p><strong>4.3</strong> 如果是多行代码，可以将“ ``` ”置于代码的首行和末行。<br>例如：</p>
-<pre class=" language-html"><code class="language-html">第一行代码
-第二行代码
-...
-第N行代码</code></pre>
-<pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>示例代码<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>使用“ ``` ”将代码包围起来，“ ``` ”后面可以跟语言的类型，例如“ ```html  ...代码部分...``` ”<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></code></pre>
-<p><strong>5、分割线</strong></p>
-<pre><code>___或者
----或者
-***</code></pre><hr>
-<hr>
-<hr>
-<p><strong>6、超链接</strong></p>
-<p><strong>6.1</strong> 文字链接，格式是：<strong>[文本](链接)</strong></p>
-<p><a href="http://github.com" target="_blank" rel="noopener">GitHub</a> <code>[GitHub](http://github.com)</code></p>
-<p><strong>6.2</strong> 图片链接，格式是：<strong>![文本](图片链接)</strong></p>
-<pre><code>![图片](https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp)</code></pre><p><img src="https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp" alt="图片"></p>
-<p><strong>6.3</strong> 插入音频，使用插件 hexo-tag-aplayer</p>
-<pre><code>&lt;iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&amp;id=34341360&amp;auto=1&amp;height=66"&gt;&lt;/iframe&gt;</code></pre><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&amp;id=34341360&amp;auto=1&amp;height=66"></iframe>
-
-<p><strong>6.4</strong> 插入视频，使用iframe</p>
-<pre><code>&lt;script src="/js/youtube-autoresizer.js"&gt;&lt;/script&gt;
-&lt;iframe width="640" height="360" src="https://www.youtube.com/embed/HfElOZSEqn4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</code></pre><script src="/js/youtube-autoresizer.js"></script>
-<iframe width="640" height="360" src="https://www.youtube.com/embed/HfElOZSEqn4" frameborder="0" allowfullscreen=""></iframe>
-
-<iframe width="640" height="360" src="blob:https://www.bilibili.com/ed667814-6199-4ca3-b745-4687052d42ba" frameborder="0" allowfullscreen=""></iframe>
-
-<p><strong>7、表格</strong></p>
-<pre><code>苹果    |草莓  |石榴
--|-|-
-苹果    |草莓  |石榴
-苹果    |草莓  |石榴
-苹果    |草莓  |石榴 </code></pre><table>
-<thead>
-<tr>
-<th>苹果</th>
-<th>草莓</th>
-<th>石榴</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>苹果</td>
-<td>草莓</td>
-<td>石榴</td>
-</tr>
-<tr>
-<td>苹果</td>
-<td>草莓</td>
-<td>石榴</td>
-</tr>
-<tr>
-<td>苹果</td>
-<td>草莓</td>
-<td>石榴</td>
-</tr>
-</tbody></table>
-<pre><code>|dog  | bird | cat |
-|-----|------|-----|
-|bar  | bear | box |
-|bar  | bear | box |</code></pre><table>
-<thead>
-<tr>
-<th>dog</th>
-<th>bird</th>
-<th>cat</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>bar</td>
-<td>bear</td>
-<td>box</td>
-</tr>
-<tr>
-<td>bar</td>
-<td>bear</td>
-<td>box</td>
-</tr>
-</tbody></table>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>博客搭建</title>
+      <link href="/ri-zhi/bo-ke-da-jian/"/>
+      <url>/ri-zhi/bo-ke-da-jian/</url>
+      
+        <content type="html"><![CDATA[<hr><p>##博客搭建<br>经过几天的学习，成功搭建了这个博客。以后就作为自己记录和分享的后花园。希望自己能够成为这个行业的大牛，也能够通过自己的分享来帮助后来人。</p><h3 id="博客分为：日志、分类、标签、关于等几项内容"><a href="#博客分为：日志、分类、标签、关于等几项内容" class="headerlink" title="博客分为：日志、分类、标签、关于等几项内容"></a>博客分为：日志、分类、标签、关于等几项内容</h3><pre class=" language-html"><code class="language-html">日志：用来记录生活琐事，所想所感分类：通过标签来将文章分类标签：来标识文章</code></pre><h3 id="此博客使用markdown"><a href="#此博客使用markdown" class="headerlink" title="此博客使用markdown"></a>此博客使用markdown</h3><h5 id="以下为markdown学习笔记"><a href="#以下为markdown学习笔记" class="headerlink" title="以下为markdown学习笔记"></a>以下为markdown学习笔记</h5><p><strong>1、标题</strong><br>标题的语法是：# 标题。前面的#号个数表示标题的级别，1个#表示一级标题，2个#号表示二级标题，以次类推，最多6级。如下所示，括号内容表示在markdown中输入的内容。</p><pre class=" language-ruby"><code class="language-ruby"><span class="token comment" spellcheck="true">#       一级标题</span><span class="token comment" spellcheck="true">##      二级标题</span><span class="token comment" spellcheck="true">###     三级标题</span><span class="token comment" spellcheck="true">####    四级标题</span><span class="token comment" spellcheck="true">#####   五级标题</span><span class="token comment" spellcheck="true">######  六级标题</span></code></pre><p><strong>2、列表</strong></p><p><strong>2.1</strong> 有序列表，格式是：1. xxx 即，数字接着一个英文句点开头。</p><pre class=" language-html"><code class="language-html">1. Item12. Item2    2.1. Item2.1    2.2. Item2.2</code></pre><p><strong>2.2</strong> 无序列表，格式是：以“-”或“*”或“+”开头即可。注意，开头符号与内容之间有一个空格！</p><ul><li>Item1     <code>- Item1</code></li></ul><ul><li>Item2     <code>+ Item2</code></li></ul><ul><li>Item3     <code>* Item3</code></li></ul><p><strong>3、强调</strong></p><p><em>这是斜体</em>      <code>*这是斜体*</code><br><em>这是斜体</em>      <code>_这是斜体_</code><br><strong>这是加粗</strong>    <code>**这是加粗**</code><br><strong>这是加粗</strong>    <code>__这是加粗__</code><br><del>这是删除</del>    <code>~~这是删除~~</code></p><p><strong>4、代码引用</strong></p><p><strong>4.1</strong> 引用讲话<br>正如xxx所说：</p><blockquote><p>balabalabala<br>bbbbbbbbbbbbbbbbb</p></blockquote><p><strong>4.2</strong> 一行代码可以用“ ` ”号将代码包围起来。<br>例如：<code>这是一行代码</code><br><code>this is a line of code</code></p><p><strong>4.3</strong> 如果是多行代码，可以将“ ``` ”置于代码的首行和末行。<br>例如：</p><pre class=" language-html"><code class="language-html">第一行代码第二行代码...第N行代码</code></pre><pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>示例代码<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>使用“ ``` ”将代码包围起来，“ ``` ”后面可以跟语言的类型，例如“ ```html  ...代码部分...``` ”<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre><p><strong>5、分割线</strong></p><pre><code>___或者---或者***</code></pre><hr><hr><hr><p><strong>6、超链接</strong></p><p><strong>6.1</strong> 文字链接，格式是：<strong>[文本](链接)</strong></p><p><a href="http://github.com" target="_blank" rel="noopener">GitHub</a> <code>[GitHub](http://github.com)</code></p><p><strong>6.2</strong> 图片链接，格式是：<strong>![文本](图片链接)</strong></p><pre><code>![图片](https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp)</code></pre><p><img src="https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp" alt="图片"></p><p><strong>6.3</strong> 插入音频，使用插件 hexo-tag-aplayer</p><pre><code>&lt;iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&amp;id=34341360&amp;auto=1&amp;height=66"&gt;&lt;/iframe&gt;</code></pre><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&amp;id=34341360&amp;auto=1&amp;height=66"></iframe><p><strong>6.4</strong> 插入视频，使用iframe</p><pre><code>&lt;script src="/js/youtube-autoresizer.js"&gt;&lt;/script&gt;&lt;iframe width="640" height="360" src="https://www.youtube.com/embed/HfElOZSEqn4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</code></pre><script src="/js/youtube-autoresizer.js"></script><iframe width="640" height="360" src="https://www.youtube.com/embed/HfElOZSEqn4" frameborder="0" allowfullscreen=""></iframe><iframe width="640" height="360" src="blob:https://www.bilibili.com/ed667814-6199-4ca3-b745-4687052d42ba" frameborder="0" allowfullscreen=""></iframe><p><strong>7、表格</strong></p><pre><code>苹果    |草莓  |石榴-|-|-苹果    |草莓  |石榴苹果    |草莓  |石榴苹果    |草莓  |石榴 </code></pre><table><thead><tr><th>苹果</th><th>草莓</th><th>石榴</th></tr></thead><tbody><tr><td>苹果</td><td>草莓</td><td>石榴</td></tr><tr><td>苹果</td><td>草莓</td><td>石榴</td></tr><tr><td>苹果</td><td>草莓</td><td>石榴</td></tr></tbody></table><pre><code>|dog  | bird | cat ||-----|------|-----||bar  | bear | box ||bar  | bear | box |</code></pre><table><thead><tr><th>dog</th><th>bird</th><th>cat</th></tr></thead><tbody><tr><td>bar</td><td>bear</td><td>box</td></tr><tr><td>bar</td><td>bear</td><td>box</td></tr></tbody></table><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
       <categories>
-        <category>日志</category>
+          
+          <category> 日志 </category>
+          
       </categories>
-  </entry>
+      
+      
+    </entry>
+    
+    
+  
+  
 </search>
