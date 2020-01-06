@@ -4,33 +4,27 @@
     <title>java命名规范</title>
     <url>/ri-zhi/java-ming-ming-gui-fan/</url>
     <content><![CDATA[<hr>
-<p>##java命名规范</p>
-<p>###项目名</p>
-<ol>
+<h2 id="java命名规范"><a href="#java命名规范" class="headerlink" title="java命名规范"></a>java命名规范</h2><h3 id="项目名"><a href="#项目名" class="headerlink" title="项目名"></a>项目名</h3><ol>
 <li>如果只有一个单词就<strong>全部小写</strong></li>
 <li>两个以上的单词就用 “-”进行分隔,小写<br>可以看到github上面一些著名的开源项目比如apache和spring-boot都是小写，以 xxx-xxx的形式来命名<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:1.jpg" alt="图片"><br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:2.jpg" alt="图片"></li>
 </ol>
-<p>###包名</p>
-<ol>
+<h3 id="包名"><a href="#包名" class="headerlink" title="包名"></a>包名</h3><ol>
 <li><strong>全部小写</strong></li>
 <li>规则可以按[域名反转].[团队名].[项目名].[一级模块].[二级模块]..[N级模块].[类]的格式进行划分，如果功能更多，可以进行更细的包划分<br>如果是组织的话就用 org.xxx.xxx ,比如阿里的dubbo项目<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:3.jpg" alt="图片"><br>如果是公司的项目，就用com.公司名.项目名,比如唯品会的vjtools<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:4.jpg" alt="图片"><br>携程的apollo项目<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:5.jpg" alt="图片"></li>
 </ol>
-<p>###类名、接口名</p>
-<ol>
+<h3 id="类名、接口名"><a href="#类名、接口名" class="headerlink" title="类名、接口名"></a>类名、接口名</h3><ol>
 <li>无论类名只有一个单词或者多个单词组成，<strong>每个单词的首字母都要大写</strong><br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:1.jpg" alt="图片"></li>
 <li>功能性的类可以使用特定关键词作为标记<br>实现类用impl结尾<br>接口+impl<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:7.jpg" alt="图片"><br>抽象类使用Abstract做为类命名的开头<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:8.jpg" alt="图片"><br>异常类命名使用“Exception”做为类命名的结尾<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:9.jpg" alt="图片"><br>单元测试类使用“ Test”做为类命名的结尾<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:10.jpg" alt="图片"></li>
 </ol>
-<p>###变量名</p>
-<ol>
+<h3 id="变量名"><a href="#变量名" class="headerlink" title="变量名"></a>变量名</h3><ol>
 <li>普通变量名<br> • 同方法的命名，一般为名词，<strong>小写</strong>。如：int index=0;<br> • 变量名当有多个单词组成时，<strong>第一个单词首字母小写，后一个单词的首字母大写</strong>（如：myName）</li>
 <li>常量名（静态变量名）</li>
 <li><strong>全部字母大写</strong></li>
 <li>多个单词用<em>下划线分隔</em>。如：public static final String GAME_COLOR=”RED”;<br>(看看Long类源码的定义)<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:11.jpg" alt="图片"></li>
 </ol>
-<p>###属性文件properties<br>以<strong>下划线</strong>隔开。<br>如：errors_zh_CN.properties， hibernate_test.properties</p>
-<p>###数据库命名：<br>表、字段命名<strong>全部大写</strong>，多个单词以 _ 隔开</p>
-<p>###注释：</p>
-<ol>
+<h3 id="属性文件properties"><a href="#属性文件properties" class="headerlink" title="属性文件properties"></a>属性文件properties</h3><p>以<strong>下划线</strong>隔开。<br>如：errors_zh_CN.properties， hibernate_test.properties</p>
+<h3 id="数据库命名："><a href="#数据库命名：" class="headerlink" title="数据库命名："></a>数据库命名：</h3><p>表、字段命名<strong>全部大写</strong>，多个单词以 _ 隔开</p>
+<h3 id="注释："><a href="#注释：" class="headerlink" title="注释："></a>注释：</h3><ol>
 <li><strong>注释规范</strong></li>
 <li>单行<br><code>// 这是一个单行注释</code></li>
 <li>多行 <pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/** 这是一个多行注释
@@ -92,7 +86,7 @@ Color bgColor <span class="token operator">=</span> Color<span class="token punc
     <title>博客搭建</title>
     <url>/ri-zhi/bo-ke-da-jian/</url>
     <content><![CDATA[<hr>
-<p>##博客搭建<br>经过几天的学习，成功搭建了这个博客。以后就作为自己记录和分享的后花园。希望自己能够成为这个行业的大牛，也能够通过自己的分享来帮助后来人。</p>
+<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><p>经过几天的学习，成功搭建了这个博客。以后就作为自己记录和分享的后花园。希望自己能够成为这个行业的大牛，也能够通过自己的分享来帮助后来人。</p>
 <h3 id="博客分为：日志、分类、标签、关于等几项内容"><a href="#博客分为：日志、分类、标签、关于等几项内容" class="headerlink" title="博客分为：日志、分类、标签、关于等几项内容"></a>博客分为：日志、分类、标签、关于等几项内容</h3><pre class=" language-html"><code class="language-html">日志：用来记录生活琐事，所想所感
 分类：通过标签来将文章分类
 标签：来标识文章</code></pre>
@@ -132,16 +126,16 @@ Color bgColor <span class="token operator">=</span> Color<span class="token punc
 第二行代码
 ...
 第N行代码</code></pre>
-<pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>示例代码<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>使用“ ``` ”将代码包围起来，“ ``` ”后面可以跟语言的类型，例如“ ```html  ...代码部分...``` ”<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
+<pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>示例代码<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>使用“ ``` ”将代码包围起来，“ ``` ”后面可以跟语言的类型，例如“ ```html  ...代码部分...``` ”<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></code></pre>
 <p><strong>5、分割线</strong></p>
 <pre><code>___或者
 ---或者
