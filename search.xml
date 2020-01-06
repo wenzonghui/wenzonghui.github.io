@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>java命名规范</title>
+    <url>/ri-zhi/java-ming-ming-gui-fan/</url>
+    <content><![CDATA[<hr>
+<p>##java命名规范</p>
+<p>###项目名</p>
+<ol>
+<li>如果只有一个单词就<strong>全部小写</strong></li>
+<li>两个以上的单词就用 “-”进行分隔,小写<br>可以看到github上面一些著名的开源项目比如apache和spring-boot都是小写，以 xxx-xxx的形式来命名<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:1.jpg" alt="图片"><br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:2.jpg" alt="图片"></li>
+</ol>
+<p>###包名</p>
+<ol>
+<li><strong>全部小写</strong></li>
+<li>规则可以按[域名反转].[团队名].[项目名].[一级模块].[二级模块]..[N级模块].[类]的格式进行划分，如果功能更多，可以进行更细的包划分<br>如果是组织的话就用 org.xxx.xxx ,比如阿里的dubbo项目<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:3.jpg" alt="图片"><br>如果是公司的项目，就用com.公司名.项目名,比如唯品会的vjtools<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:4.jpg" alt="图片"><br>携程的apollo项目<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:5.jpg" alt="图片"></li>
+</ol>
+<p>###类名、接口名</p>
+<ol>
+<li>无论类名只有一个单词或者多个单词组成，<strong>每个单词的首字母都要大写</strong><br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:1.jpg" alt="图片"></li>
+<li>功能性的类可以使用特定关键词作为标记<br>实现类用impl结尾<br>接口+impl<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:7.jpg" alt="图片"><br>抽象类使用Abstract做为类命名的开头<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:8.jpg" alt="图片"><br>异常类命名使用“Exception”做为类命名的结尾<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:9.jpg" alt="图片"><br>单元测试类使用“ Test”做为类命名的结尾<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:10.jpg" alt="图片"></li>
+</ol>
+<p>###变量名</p>
+<ol>
+<li>普通变量名<br> • 同方法的命名，一般为名词，<strong>小写</strong>。如：int index=0;<br> • 变量名当有多个单词组成时，<strong>第一个单词首字母小写，后一个单词的首字母大写</strong>（如：myName）</li>
+<li>常量名（静态变量名）</li>
+<li><strong>全部字母大写</strong></li>
+<li>多个单词用<em>下划线分隔</em>。如：public static final String GAME_COLOR=”RED”;<br>(看看Long类源码的定义)<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:11.jpg" alt="图片"></li>
+</ol>
+<p>###属性文件properties<br>以<strong>下划线</strong>隔开。<br>如：errors_zh_CN.properties， hibernate_test.properties</p>
+<p>###数据库命名：<br>表、字段命名<strong>全部大写</strong>，多个单词以 _ 隔开</p>
+<p>###注释：</p>
+<ol>
+<li><strong>注释规范</strong></li>
+<li>单行<br><code>// 这是一个单行注释</code></li>
+<li>多行 <pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/** 这是一个多行注释
+可以有多行*/</span></code></pre>
+</li>
+</ol>
+<p><strong>基本规则：</strong></p>
+<ul>
+<li>以上的名称的组成元素只能是字母、数字、下划线、$符号</li>
+<li>不要用数字开头</li>
+<li>名称不能使用Java的关键字，比如idea在新建包名的时候出现关键字就会提示包名不合法</li>
+<li>不要出现中文及拼音命名(有些方法命名又有拼音又有英文，就会显得四不像)<br>附(Java关键字列表)：<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:12.jpg" alt="图片"></li>
+</ul>
+<ol start="2">
+<li><strong>属性注释</strong><br>在每个属性前面必须加上属性注释，注释模板如下：<pre><code>/** 提示信息 */
+private String strMsg = null;</code></pre></li>
+<li><strong>方法注释</strong><br>在每个方法前面必须加上方法注释，注释模板如下：<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+* @param 参数1               参数1的使用说明
+* @return                   返回结果的说明
+* @throws 异常类型.错误代码    注明从此类方法中抛出异常的说明
+*/</span></code></pre>
+</li>
+<li><strong>构造方法注释</strong><br> • 在每个构造方法前面必须加上注释，注释模板如下：<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+* @param 参数1              参数1的使用说明
+* @throws 异常类型.错误代码   注明从此类方法中抛出异常的说明
+*/</span></code></pre>
+</li>
+<li><strong>方法内部注释</strong><br>在方法内部使用单行或者多行注释，该注释根据实际情况添加。如：<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//背景颜色</span>
+Color bgColor <span class="token operator">=</span> Color<span class="token punctuation">.</span>RED</code></pre>
+</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>日志</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>博客搭建</title>
     <url>/ri-zhi/bo-ke-da-jian/</url>
     <content><![CDATA[<hr>
