@@ -66,8 +66,60 @@
 <p><strong>6.2</strong> 图片链接，格式是：<strong>![文本](图片链接)</strong></p>
 <pre><code>![图片](https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp)</code></pre><p><img src="https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp" alt="图片"></p>
 <p><strong>7、表格</strong></p>
-<p><strong>7.1</strong> 标准模式，第二行中“—-|：–：|—”冒号用于设置表格的对齐方式，左边表示左对齐，右边表示右对齐，放两边表示居中，不放冒号（默认状态）表示表头居中内容居左。<br>|苹果  |草莓  |石榴  |石头  |<br>|—–|:—–|—: |:—-:|<br>|苹果  |草莓  |石榴  |石头  |<br>|苹果  |草莓  |石榴  |石头  |<br>|苹果  |草莓  |石榴  |石头  |<br>|苹果  |草莓  |石榴  |石头  |<br>苹果    草莓    石榴    石头<br>苹果    草莓    石榴    石头<br>苹果    草莓    石榴    石头<br>苹果    草莓    石榴    石头<br>苹果    草莓    石榴    石头</p>
-<p><strong>7.2</strong> 源码：简写模式，省略了两边的“|”。<br>|dog | bird  | cat|<br>|—–|—–|—–|<br>|bar  | bear | box|<br>|bar  | bear | box|<br>dog    bird    cat<br>bar    bear    box<br>bar    bear    box</p>
+<p><strong>7.1</strong> 标准模式，第二行中“—-|：–：|—”冒号用于设置表格的对齐方式，左边表示左对齐，右边表示右对齐，放两边表示居中，不放冒号（默认状态）表示表头居中内容居左。</p>
+<table>
+<thead>
+<tr>
+<th>苹果</th>
+<th>草莓</th>
+<th>石榴</th>
+<th>石头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>苹果</td>
+<td>草莓</td>
+<td>石榴</td>
+<td>石头</td>
+</tr>
+<tr>
+<td>苹果</td>
+<td>草莓</td>
+<td>石榴</td>
+<td>石头</td>
+</tr>
+<tr>
+<td>苹果</td>
+<td>草莓</td>
+<td>石榴</td>
+<td>石头</td>
+</tr>
+<tr>
+<td>苹果</td>
+<td>草莓</td>
+<td>石榴</td>
+<td>石头</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>dog</th>
+<th>bird</th>
+<th>cat</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bar</td>
+<td>bear</td>
+<td>box</td>
+</tr>
+<tr>
+<td>bar</td>
+<td>bear</td>
+<td>box</td>
+</tr>
+</tbody></table>
 <table>
 <thead>
 <tr>
