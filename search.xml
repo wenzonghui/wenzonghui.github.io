@@ -1,117 +1,867 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>java中String对象 和 StringBuilder类的常用方法</title>
-      <link href="/java/hou-duan/java-zhong-stringbuilder-lei-de-chang-yong-fang-fa/"/>
-      <url>/java/hou-duan/java-zhong-stringbuilder-lei-de-chang-yong-fang-fa/</url>
-      
-        <content type="html"><![CDATA[<hr><h2 id="java中String对象-和-StringBuilder类的常用方法"><a href="#java中String对象-和-StringBuilder类的常用方法" class="headerlink" title="java中String对象 和 StringBuilder类的常用方法"></a>java中String对象 和 StringBuilder类的常用方法</h2><h3 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h3><blockquote><p><code>String</code>类是被<code>final</code>所修饰的，因此<code>String</code>类对象不可变，也不可继承。这里要注意一个误区，<strong>字符串对象不可变，但字符串变量所指的值是可变的，即引用地址可变</strong>。<code>String</code>变量存储的是对<code>String</code>对象的引用，<code>String</code>对象里存储的才是字符串的值.</p></blockquote><a id="more"></a><p><strong>例子如下：</strong></p><blockquote><p><code>String str = "abc"; //str是个对象引用，一个字符串变量</code><br><code>System.out.println(str); //输出abc</code><br><code>str = "abcde"; //str这个字符串变量所指的值可变</code><br><code>System.out.println(str); //输出abcde</code></p></blockquote><blockquote><p>当给<code>str</code>第二次赋值的时候，对象 “abc” 并没有被销毁，仍存放在常量池中（String自带），只是让<code>str</code>指向了 “abcde” 的内存地址，而字符串对象 “abcde” 是新生成的，即<code>str</code>第二次赋值时并不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。记住，对String对象的任何改变都不影响到原对象，相关的任何改变的操作都会生成新的对象。</p></blockquote><p><strong>String的两种赋值方式</strong></p><p><em>区分【String str=”HW”】和【String str=new String(“HW”) 】</em></p><ol><li>字面量赋值方式     eg：String str = “Hello”；</li></ol><blockquote><p>该种直接赋值的方法，JVM会去字符串常量池（String对象不可变）中寻找是否有equals(“Hello”)的String对象，如果有，就把该对象在字符串常量池中”Hello”的引用复制给字符串变量str，如若没有，就在堆中新建一个对象，同时把引用驻留在字符串常量池中，再把引用赋给字符串变量str。<br>用该方法创建字符串时，无论创建多少次，只要字符串的值(内容)相同，那么它们所指向的都是堆中的同一个对象。<br>该方法直接赋值给变量的字符串存放在常量池里</p></blockquote><ol start="2"><li>new关键字创建新对象     eg：String str = new String(“Hello”)；</li></ol><blockquote><p>利用new来创建字符串时，无论字符串常量池中是否有与当前值相同的对象引用，都会在堆中新开辟一块内存，创建一个新的对象。</p></blockquote><p>注意：对字符串进行拼接操作，即做”+”运算的时候，分2种情况：</p><blockquote><p>表达式右边是纯字符串常量，那么存放在常量池里面。eg：String str = “Hello” + “World”；<br>表达式右边如果存在字符串引用，也就是字符串对象的句柄，那么就存放在堆里面。eg：String str = str1 + str2；<br>总结：常量池是方法区的一部分，而方法区是线程共享的，所以常量池也是线程共享的，且它是线程安全的，它让有相同值的引用指向同一个位置，如果引用值变化了，但是常量池中没有新的值，那么就会新建一个常量结果来交给新的引用，对于同一个对象，new出来的字符串存放在堆中，而直接赋值给变量的字符串存放在常量池里。</p></blockquote><p><strong>字符串比较：区分 “==” 和 “equals”</strong></p><blockquote><p>“==”：比较引用变量的地址，即两个对象是否引用同一地址的内容，会检测是否指向同一个对象。</p></blockquote><blockquote><p>“equals”：比较对象的内容，即两个对象内容上是否相同</p></blockquote><blockquote><p>字符串用这两种比较方式都是可行的，具体看想要比较什么，总体来看，”==”稍微强大些，因为它既要求内容相同，也要求引用对象相同.</p></blockquote><p><strong>intern() 方法</strong></p><blockquote><p>当使用 intern() 方法时，会先查询字符串常量池是否存在当前字符串，如果存在，则返回常量池中的引用，若不存在，则将字符串添加到字符串常量池中，并返回字符串常量池中的引用。</p></blockquote><p><strong>连接字符串</strong></p><pre><code>public class StringDemo {    public static void main(String args[]) {             String string1 = "菜鸟教程网址：";             System.out.println("1、" + string1 + "www.runoob.com");      }}</code></pre><p><code>输出</code><br><code>"Hello, runoob!"</code></p><pre><code>public class StringDemo {    public static void main(String args[]) {             String string1 = "菜鸟教程网址：";             System.out.println("我的名字是 ".concat("Runoob");)     }}</code></pre><p><code>输出</code><br><code>我的名字是 Runoob</code></p><p><strong>创建格式化字符串</strong></p><pre><code>方法一：System.out.printf("浮点型变量的值为 " +                  "%f, 整型变量的值为 " +                  " %d, 字符串变量的值为 " +                  "is %s", floatVar, intVar, stringVar);</code></pre><pre><code>方法二：String fs;fs = String.format("浮点型变量的值为 " +                   "%f, 整型变量的值为 " +                   " %d, 字符串变量的值为 " +                   " %s", floatVar, intVar, stringVar);</code></pre><blockquote><p><strong>注意:</strong><br>String 类的静态方法 format() 能用来创建可复用的格式化字符串，而不仅仅是用于一次打印输出。</p></blockquote><p><strong>String使用方法</strong></p><table><thead><tr><th>0序号</th><th>方法描述</th></tr></thead><tbody><tr><td>1、</td><td>char charAt(int index) <br>返回指定索引处的 char 值。</td></tr><tr><td>2、</td><td>int compareTo(Object o)<br>把这个字符串和另一个对象比较。</td></tr><tr><td>3、</td><td>int compareTo(String anotherString)<br>按字典顺序比较两个字符串。</td></tr><tr><td>4、</td><td>int compareToIgnoreCase(String str)<br>按字典顺序比较两个字符串，不考虑大小写。</td></tr><tr><td>5、</td><td>String concat(String str)<br>将指定字符串连接到此字符串的结尾。</td></tr><tr><td>6、</td><td>boolean contentEquals(StringBuffer sb)<br>当且仅当字符串与指定的StringBuffer有相同顺序的字符时候返回真。</td></tr><tr><td>7、</td><td>static String copyValueOf(char[] data)<br>返回指定数组中表示该字符序列的 String。</td></tr><tr><td>8、</td><td>static String copyValueOf(char[] data, int offset, int count)<br>返回指定数组中表示该字符序列的 String。</td></tr><tr><td>9、</td><td>boolean endsWith(String suffix)<br>测试此字符串是否以指定的后缀结束。</td></tr><tr><td>10、</td><td>boolean equals(Object anObject)<br>将此字符串与指定的对象比较。</td></tr><tr><td>11、</td><td>boolean equalsIgnoreCase(String anotherString)<br>将此 String 与另一个 String 比较，不考虑大小写。</td></tr><tr><td>12、</td><td>byte[] getBytes()<br>使用平台的默认字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</td></tr><tr><td>13、</td><td>byte[] getBytes(String charsetName)<br>使用指定的字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</td></tr><tr><td>14、</td><td>void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)<br>将字符从此字符串复制到目标字符数组。</td></tr><tr><td>15、</td><td>int hashCode()<br>返回此字符串的哈希码。</td></tr><tr><td>16、</td><td>int indexOf(int ch)<br>返回指定字符在此字符串中第一次出现处的索引。</td></tr><tr><td>17、</td><td>int indexOf(int ch, int fromIndex)<br>返回在此字符串中第一次出现指定字符处的索引，从指定的索引开始搜索。</td></tr><tr><td>18、</td><td>int indexOf(String str)<br>返回指定子字符串在此字符串中第一次出现处的索引。</td></tr><tr><td>19、</td><td>int indexOf(String str, int fromIndex)<br>返回指定子字符串在此字符串中第一次出现处的索引，从指定的索引开始。</td></tr><tr><td>20、</td><td>String intern()<br>返回字符串对象的规范化表示形式。</td></tr><tr><td>21、</td><td>int lastIndexOf(int ch)<br>返回指定字符在此字符串中最后一次出现处的索引。</td></tr><tr><td>22、</td><td>int lastIndexOf(int ch, int fromIndex)<br>返回指定字符在此字符串中最后一次出现处的索引，从指定的索引处开始进行反向搜索。</td></tr><tr><td>23、</td><td>int lastIndexOf(String str)返回指定子字符串在此字符串中最右边出现处的索引。</td></tr><tr><td>24、</td><td>int lastIndexOf(String str, int fromIndex)<br>返回指定子字符串在此字符串中最后一次出现处的索引，从指定的索引开始反向搜索。</td></tr><tr><td>25、</td><td>int length()<br>返回此字符串的长度。</td></tr><tr><td>26、</td><td>boolean matches(String regex)<br>告知此字符串是否匹配给定的正则表达式。</td></tr><tr><td>27、</td><td>boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)<br>测试两个字符串区域是否相等。</td></tr><tr><td>28、</td><td>boolean regionMatches(int toffset, String other, int ooffset, int len)<br>测试两个字符串区域是否相等。</td></tr><tr><td>29、</td><td>String replace(char oldChar, char newChar)<br>返回一个新的字符串，它是通过用 newChar 替换此字符串中出现的所有 oldChar 得到的。</td></tr><tr><td>30、</td><td>String replaceAll(String regex, String replacement)<br>使用给定的 replacement 替换此字符串所有匹配给定的正则表达式的子字符串。</td></tr><tr><td>31、</td><td>String replaceFirst(String regex, String replacement)<br>使用给定的 replacement 替换此字符串匹配给定的正则表达式的第一个子字符串。</td></tr><tr><td>32、</td><td>String[] split(String regex)<br>根据给定正则表达式的匹配拆分此字符串。</td></tr><tr><td>33、</td><td>String[] split(String regex, int limit)<br>根据匹配给定的正则表达式来拆分此字符串。</td></tr><tr><td>34、</td><td>boolean startsWith(String prefix)<br>测试此字符串是否以指定的前缀开始。</td></tr><tr><td>35、</td><td>boolean startsWith(String prefix, int toffset)<br>测试此字符串从指定索引开始的子字符串是否以指定前缀开始。</td></tr><tr><td>36、</td><td>CharSequence subSequence(int beginIndex, int endIndex)<br>返回一个新的字符序列，它是此序列的一个子序列。</td></tr><tr><td>37、</td><td>String substring(int beginIndex)<br>返回一个新的字符串，它是此字符串的一个子字符串。</td></tr><tr><td>38、</td><td>String substring(int beginIndex, int endIndex)<br>返回一个新字符串，它是此字符串的一个子字符串。</td></tr><tr><td>39、</td><td>char[] toCharArray()<br>将此字符串转换为一个新的字符数组。</td></tr><tr><td>40、</td><td>String toLowerCase()<br>用默认语言环境的规则将此 String 中的所有字符都转换为小写。</td></tr><tr><td>41、</td><td>String toLowerCase(Locale locale)<br>使用给定 Locale 的规则将此 String 中的所有字符都转换为小写。</td></tr><tr><td>42、</td><td>String toString()<br>返回此对象本身（它已经是一个字符串！）。</td></tr><tr><td>43、</td><td>String toUpperCase()<br>使用默认语言环境的规则将此 String 中的所有字符都转换为大写。</td></tr><tr><td>44、</td><td>String toUpperCase(Locale locale)<br>使用给定 Locale 的规则将此 String 中的所有字符都转换为大写。</td></tr><tr><td>45、</td><td>String trim()<br>返回字符串的副本，忽略前导空白和尾部空白。</td></tr><tr><td>46、</td><td>static String valueOf(primitive data type x)<br>返回给定data type类型x参数的字符串表示形式。</td></tr></tbody></table><h3 id="StringBuffer使用方法"><a href="#StringBuffer使用方法" class="headerlink" title="StringBuffer使用方法"></a>StringBuffer使用方法</h3><pre><code>public class Test{  public static void main(String args[]){    StringBuffer sBuffer = new StringBuffer("菜鸟教程官网：");    sBuffer.append("www");    sBuffer.append(".runoob");    sBuffer.append(".com");    System.out.println(sBuffer);  }}</code></pre><p><code>输出：</code><br><code>菜鸟教程官网：www.runoob.com</code></p><p><strong>StringBuffer 方法</strong></p><table><thead><tr><th>0序号</th><th>方法描述</th></tr></thead><tbody><tr><td>1、</td><td>public StringBuffer append(String s) <br>将指定的字符串追加到此字符序列。</td></tr><tr><td>2、</td><td>public StringBuffer reverse() <br>将此字符序列用其反转形式取代。</td></tr><tr><td>3、</td><td>public delete(int start, int end) <br>移除此序列的子字符串中的字符。</td></tr><tr><td>4、</td><td>public insert(int offset, int i) <br>将 int 参数的字符串表示形式插入此序列中。</td></tr><tr><td>5、</td><td>replace(int start, int end, String str) <br>使用给定 String 中的字符替换此序列的子字符串中的字符。</td></tr><tr><td>6、</td><td>int capacity() <br>返回当前容量。</td></tr><tr><td>7、</td><td>char charAt(int index) <br>返回此序列中指定索引处的 char 值。</td></tr><tr><td>8、</td><td>void ensureCapacity(int minimumCapacity) <br>确保容量至少等于指定的最小值。</td></tr><tr><td>9、</td><td>void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)<br>将字符从此序列复制到目标字符数组 dst。</td></tr><tr><td>10、</td><td>int indexOf(String str) <br>返回第一次出现的指定子字符串在该字符串中的索引。</td></tr><tr><td>11、</td><td>int indexOf(String str, int fromIndex) <br>从指定的索引处开始，返回第一次出现的指定子字符串在该字符串中的索引。</td></tr><tr><td>12、</td><td>int lastIndexOf(String str) <br>返回最右边出现的指定子字符串在此字符串中的索引。</td></tr><tr><td>13、</td><td>int lastIndexOf(String str, int fromIndex) <br>返回 String 对象中子字符串最后出现的位置。</td></tr><tr><td>14、</td><td>int length() <br>返回长度（字符数）。</td></tr><tr><td>15、</td><td>void setCharAt(int index, char ch) <br>将给定索引处的字符设置为 ch。</td></tr><tr><td>16、</td><td>void setLength(int newLength) <br>设置字符序列的长度。</td></tr><tr><td>17、</td><td>CharSequence subSequence(int start, int end) <br>返回一个新的字符序列，该字符序列是此序列的子序列。</td></tr><tr><td>18、</td><td>String substring(int start) <br>返回一个新的 String，它包含此字符序列当前所包含的字符子序列。</td></tr><tr><td>19、</td><td>String substring(int start, int end) <br>返回一个新的 String，它包含此序列当前所包含的字符子序列。</td></tr><tr><td>20、</td><td>String toString() <br>返回此序列中数据的字符串表示形式。</td></tr></tbody></table><h3 id="StringBuilder-amp-StringBuffer-综合"><a href="#StringBuilder-amp-StringBuffer-综合" class="headerlink" title="StringBuilder  &amp; StringBuffer 综合"></a>StringBuilder  &amp; StringBuffer 综合</h3><blockquote><p>StringBuilder和StringBuffer类类似于String类，但区别在于String创建的对象是不可改变的，而StringBuilder和StringBuffer这两个类创建对象后都是可以对对象进行修改的。即String为字符串常量，而StringBuilder和StringBuffer均为字符串变量</p><p>运行速度（快到慢）：StringBuilder &gt; StringBuffer &gt; String<br>StringBuilder和StringBuffer的对象是变量，对变量进行操作就是直接对该对象进行更改，而不进行像String对象那样子进行创建和回收的操作，所以速度要比String快很多。</p><p>在线程安全上，StringBuilder是线程不安全的，而StringBuffer是线程安全的<br>如果一个StringBuffer对象在字符串缓冲区被多个线程使用时，StringBuffer中很多方法可以带有synchronized关键字，所以可以保证线程是安全的，但StringBuilder的方法则没有该关键字，所以不能保证线程安全，有可能会出现一些错误的操作。所以如果要进行的操作是多线程的，那么就要使用StringBuffer，但是在单线程的情况下，还是建议使用速度比较快的StringBuilder。</p></blockquote><h3 id="字符串拼接五种方法"><a href="#字符串拼接五种方法" class="headerlink" title="字符串拼接五种方法"></a>字符串拼接五种方法</h3><blockquote><ul><li>使用 +</li><li>使用 concat</li><li>使用 StringBuilder</li><li>使用 StringBuffer</li><li>使用 StringUtils.join</li></ul></blockquote><blockquote><p>效率（用时短到长）：StringBuilder &lt; StringBuffer &lt; concat &lt; + &lt; StringUtils.join</p></blockquote><blockquote><ol><li>“+”是Java提供的一个语法糖，而使用+拼接的字符串，它将String转成了StringBuilder后，再使用StringBuilder.append进行处理。如果不是在循环体中进行字符串拼接的话，直接使用+就好了。</li><li>concat方法，其实是new了一个新的String</li><li>StringUtils.join也是通过StringBuilder来实现的</li><li>StringBuffer在StringBuilder的基础上，做了同步处理，所以在耗时上会相对多一些。</li><li>如果在并发场景中进行字符串拼接的话，要使用StringBuffer来替代StringBuilder。因为StringBuilder是线程不安全的，而StringBuffer是线程安全的</li><li>由于String是Java中一个不可变的类，所以他一旦被实例化就无法被修改，因此所有的所谓字符串拼接，都是重新生成了一个新的字符串。</li></ol></blockquote><p><strong>总结：</strong></p><blockquote><p>String：适用于少量的字符串操作的情况<br>StringBuilder：适用于单线程下在字符缓冲区进行大量操作的情况<br>StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况</p></blockquote><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>有感</title>
+    <url>/ri-zhi/you-gan/</url>
+    <content><![CDATA[<hr>
+<h3 id="2020年寒假有感"><a href="#2020年寒假有感" class="headerlink" title="2020年寒假有感"></a>2020年寒假有感</h3><p>  刚刚过去的2019年，我只干了一件事-准备研究生入学考试。虽然历时不短，却很难说考得怎么样。专业课是真的难：对于408，我经历了从蔑视到敬畏再到放弃的过程。为了不过多的浪费自己的复习成果，最后我选择了一个考三门专业课的学校。而这，也令我感到很是吃力，我也在一次次的人生决定性经历中对自己的智商有了准确的认识。我并不是一个聪明人，走捷径也不适合我。作为一个各方面都极普通的小镇青年，一步一个脚印踏踏实实的走可能是我最容易成功的道路。<br>  在准备考试期间，我也时刻关注着行业的情形。经济下行的压力日渐明显，互联网已不是那个淘金的年代了。我也曾因此而懊恼，后悔自己不早生几年，好轻松的完成资本的原始积累。可现实确是如此的残酷，我刚要跳入这996的人潮之时，裁员的暴雷一个接一个，我也很清楚，这并不代表着我不能从业此，只是生活又添了几分压力。不管怎样，远离建筑工地我都不会后悔！或许我也只能做一个平庸的开发，a common man, a common coder。我有这样的觉悟，也能承受的了这样的后果。<br>  其实带给我最大压力的并不是行业的不景气而是自身实力的弱小。我不是一个厉害的程序员，只能说 just so so。这也是我最不愿看到的，我也为此而逃避，现在我要直面它了。我就是菜，但是我要变强！矛盾的是，巨大的无力感环绕着我，我很想逃离，却不得已。这些都需要我自己来慢慢克服。越长大就越独立，包括生活上和精神上。思维的成熟才是男人成熟的标志。我在一次次的背叛中总结，学会保护自己，给自己带上面具。哇！真的很安全了哎～～只是精神上更容易孤独，所以我有了我的小狗🐶！真是完美！<br>  我渐渐意识到自己的普通和平庸，不再狂妄自大，不再不可一世。这有可能会扼杀我的野心，也顾不得那些，尽量保持理智吧。首先我得活下去才行。成人的世界里，哪里会给你缓气的机会？一击致命。先学保命，再求攻取。中庸之道，有可能不会有大的作为，同时也不会赔的血本无归，我真的输不起。掰着手指头细细数来，父母没有给我留下债务已是万分荣幸！短期里我仍旧是“三无”屌丝：无房无车无存款。勇敢的接受自己和他人的差距后，我也不再慌张，怕什么呢？最差不过一无所有，我本来也是这样啊！女朋友也不敢想，哪里来的资本再去养一个人？我这条件也确实差的离谱，哪个瞎眼的姑娘会看上我，不得而知。在缺乏信任的今日社会，我更愿意相信自己的钞票。被知乎洗脑了这么久，已经醒了。幻想什么的都滚一边去吧，还是要踏实下来，做一个普通人。最大的痛苦就是像孙少平一样-读了几本闲书，看过城市的繁华，能力却托不起自己的野心。还是马克思说的对-经济基础决定上层建筑，也就是说脱贫比脱单要重要。<br>  人生就是一列开往坟墓的列车，途中会有很多站，很难有人可以自始至终陪着自己走完。当陪你的人要下车时，即使不舍也该心存感激，然后挥手道别。有的人跑的太快，我跟不上-我很痛苦；有的人跑的太慢，目前我也没有丢弃他们，不知道今后了。都是精致的利己主义者，问心无愧即可。人的价值观在走出高中上大学这一节点会有大的变化，我已经看到这一变化了，也切实感受着它，并学着驾驭它。另一个是大学毕业走进职场，马上了，咱们来拭目以待。<br>  今天先写到这，有点困了，睡觉。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <categories>
-          
-          <category> java </category>
-          
-          <category> 后端 </category>
-          
+        <category>日志</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> StringBuilder </tag>
-            
-            <tag> StringBuffer </tag>
-            
-            <tag> String </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>git学习笔记</title>
-      <link href="/hou-duan/git-xue-xi-bi-ji/"/>
-      <url>/hou-duan/git-xue-xi-bi-ji/</url>
-      
-        <content type="html"><![CDATA[<hr><h2 id="git学习笔记"><a href="#git学习笔记" class="headerlink" title="git学习笔记"></a>git学习笔记</h2><h3 id="何为git？"><a href="#何为git？" class="headerlink" title="何为git？"></a>何为git？</h3><blockquote><p>Git是目前世界上最先进的分布式版本控制系统, 为了快速高效地处理小或大型项目的所有内容。通过对信息的压缩和摘要，使得所占空间非常小，但能够支持项目版本迅速迭代的开发工具。</p></blockquote><h3 id="SVN与Git的的区别？"><a href="#SVN与Git的的区别？" class="headerlink" title="SVN与Git的的区别？"></a>SVN与Git的的区别？</h3><blockquote><p>所有的版本控制系统只能跟踪文本文件的改动，比如TXT文件，网页，所有的程序代码等等</p></blockquote><a id="more"></a><blockquote><p>SVN是集中式版本控制系统，版本库是集中放在中央服务器的，而干活的时候，用的都是自己的电脑，所以首先要从中央服务器哪里得到最新的版本，然后干活，干完后，需要把自己做完的活推送到中央服务器。集中式版本控制系统是必须联网才能工作，如果在局域网还可以，带宽够大，速度够快，如果在互联网下，如果网速慢的话，就纳闷了。</p></blockquote><blockquote><p>Git是分布式版本控制系统，那么它就没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本都是在自己的电脑上。既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说自己在电脑上改了文件A，其他人也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p></blockquote><h3 id="Git的分区"><a href="#Git的分区" class="headerlink" title="Git的分区"></a>Git的分区</h3><blockquote><p>工作区，也叫Working Directory<br>暂存区，也叫Stage 或 Index<br>版本库，也叫本地仓库，Commit History</p></blockquote><p><strong>工作区</strong></p><blockquote><p>工作区应该不陌生，就是我们能看见，直接编辑的工作区域。对于一些新增的文件，如果没有被add到暂存区，就会以<strong>红色</strong>的形式放置在工作区。</p></blockquote><p><strong>暂存区</strong></p><blockquote><p>数据暂时存放的区域，对于执行 <strong><code>add .</code></strong> 后的文件就算是进入暂存区啦。可以理解为数据进入 <em>本地代码仓库</em> 之前存放的区域。由于还没对本地仓库生效，所以是数据暂时存放的区域。<br>对暂存区的文件<em>修改</em>后，会以<strong>蓝色</strong>的形式显示。如果第一次创建并add到暂存区的文件，由于远程仓库没有同步，所以会显示<strong>绿色</strong>。<br>注：存放在 “.git目录下” 下的index文件 <strong>.git/index</strong> </p></blockquote><p><strong>版本库</strong></p><blockquote><p>对暂存区的代码执行 <strong>commit</strong> 会被放入版本库中。可以理解为一个<em>本地的代码仓库</em>，<strong>push</strong> 的时候，才会把版本库的数据全都发送到<em>远程仓库</em>中。<br>注：存放在工作区中“.git”目录下，<strong>.git</strong></p></blockquote><p><strong>图示</strong></p><pre><code>|-------|                    |----------------------------------|| 工作区 |                    | 版本库                            ||       |                    |  |-----|               |------|  ||       |--------add-------&gt; |  |index| ---commit---&gt; |master|  ||       |                    |  |     |               |      |  ||       |                    |  |-----|               |------|  ||-------|                    |----------------------------------|</code></pre><h3 id="git的指令"><a href="#git的指令" class="headerlink" title="git的指令"></a>git的指令</h3><p><strong>创建新的仓库</strong></p><blockquote><p>创建新文件夹，终端进入，然后执行 <strong><code>git init</code></strong> 以创建新的 git 仓库。</p></blockquote><p><strong>检出仓库</strong></p><blockquote><p>执行如下命令以创建一个本地仓库的克隆版本：<br><strong><code>git clone /path/to/repository</code></strong><br>如果是远端服务器上的仓库，你的命令会是这个样子：<br><strong><code>git clone username@host:/path/to/repository</code></strong></p></blockquote><p><strong>添加与提交</strong></p><blockquote><p>你可以把文件添加到缓存区，使用如下命令：<br><strong><code>git add &lt;filename&gt;</code></strong><br><strong><code>git add *</code></strong><br>然后使用如下命令以实际提交改动：<br><strong><code>git commit -m "代码提交信息"</code></strong><br>现在，你的改动已经提交到了 <em>本地仓库</em>，但是还没到你的 <em>远端仓库</em>。</p></blockquote><p><strong>推送改动</strong></p><blockquote><p>你的改动现在已经在本地仓库的 HEAD 中了。执行如下命令以将这些改动提交到<em>远端仓库<em>：<br>*</em><code>git push origin master</code>**<br>当然，可以把 *master</em> 换成你想要推送的任何分支。<br>如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：<br><strong><code>git remote add origin &lt;server&gt;</code></strong><br>如此你就能够将你的改动推送到所添加的服务器上去了。</p><p>提交后，查看工作区和版本库里面最新版本的区别：<br><code>git diff HEAD -- &lt;file-name&gt;</code></p></blockquote><h3 id="更新与合并"><a href="#更新与合并" class="headerlink" title="更新与合并"></a>更新与合并</h3><blockquote><p>要更新你的本地仓库至最新改动，执行：<br><strong><code>git pull</code></strong><br>以在你的工作目录中 获取（fetch） 并 合并（merge） 远端的改动。<br>要合并其他分支到你的当前分支（例如 master），执行：<br><strong><code>git merge &lt;branch-name&gt;</code></strong><br>两种情况下，git 都会尝试去自动合并改动。不幸的是，自动合并并非次次都能成功，并可能导致 冲突（conflicts）。 这时候就需要你修改这些文件来人肉合并这些 冲突（conflicts） 了。改完之后，你需要执行如下命令以将它们标记为合并成功：<br><strong><code>git add &lt;filename&gt;</code></strong><br>在合并改动之前，也可以使用如下命令查看：<br><strong><code>git diff &lt;source_branch&gt; &lt;target_branch&gt;</code></strong></p></blockquote><h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><blockquote><p>用HEAD表示当前版本，上一个版本就是 <strong>HEAD^</strong>, 上上一个版本就是 <strong>HEAD^^</strong>, 当然往上100个版本写100个^比较容易数不过来，所以写成 <strong>HEAD~100</strong>。</p><p>例如：后退到上一个版本<br><code>git reset --hard HEAD^</code></p><p>后退到指定版本<br><code>git reset --hard commit_id</code></p><p>穿梭前，用git log可以查看提交历史, 项目修改过程，以便确定要回退到哪个版本。</p><p>要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本</p></blockquote><h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><blockquote><ol><li>一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；<br>丢弃工作区的修改：<br><code>git checkout -- filename</code></li><li>另一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。<br>把暂存区的修改撤销掉（unstage），重新放回工作区:<br><code>git reset HEAD &lt;file-name&gt;</code><br>然后丢弃工作区的修改:<br><code>git checkout -- &lt;file-name&gt;</code></li></ol><p>总之，就是让这个文件回到最近一次 <code>git commit</code> 或 <code>git add</code> 时的状态。可以用 <code>git status</code> 查看一下文件状态。</p></blockquote><h3 id="文件删除"><a href="#文件删除" class="headerlink" title="文件删除"></a>文件删除</h3><blockquote><ol><li>确定删除<br>文件中删掉该文件<br><code>rm &lt;file-name&gt;</code><br>git版本中删除<br><code>git rm &lt;file-name&gt;</code><br>提交<br><code>git commit -m "remove &lt;file-name&gt;"</code></li><li>误删并撤回<br>文件中误删该文件<br><code>rm &lt;file-name&gt;</code><br>git撤销操作<br><code>git checkout -- &lt;file-name&gt;</code></li></ol></blockquote><h3 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h3><blockquote><ul><li>背景：先有本地库，后有远程库的时候，如何关联远程库 ?</li></ul><ol><li>登陆GitHub，然后在右上角找到 “<code>Create a new repo</code>” 按钮，创建一个新的仓库。</li><li>目前，在GitHub上的这个仓库还是空的，GitHub告诉我们，可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库。</li><li>现在，我们根据GitHub的提示，在本地的这个仓库下运行命令：<br><code>git remote add origin git@github.com:wenzonghui/object-name.git</code></li><li>下一步，就可以把本地库的所有内容推送到远程库上(因为第一次push，要加上 <code>-u</code>)<br><code>git push -u origin master</code></li></ol><ul><li>把本地库的内容推送到远程，用 <code>git push</code> 命令，实际上是把当前分支 <code>master</code> 推送到远程。<br>推送成功后，可以立刻在GitHub页面中看到远程库的内容已经和本地一模一样：<br>从现在起，只要本地作了提交，就可以通过命令：<br><code>git push origin master</code><br>把本地master分支的最新修改推送至GitHub</li></ul></blockquote><h3 id="从远程仓库克隆"><a href="#从远程仓库克隆" class="headerlink" title="从远程仓库克隆"></a>从远程仓库克隆</h3><blockquote><ul><li>背景：假设我们从零开发，那么最好的方式是先创建远程库，然后，从远程库克隆</li></ul><ol><li>首先，登陆GitHub，创建一个新的仓库，名字叫 <code>object-name</code><br>勾选 <code>Initialize this repository with a README</code> ，这样GitHub会自动为我们创建一个 <code>README.md</code> 文件</li><li>现在，远程库已经准备好了，下一步是用命令 <code>git clone</code> 克隆一个本地库：<br><code>git clone git@github.com:wenzonghui/object-name.git</code><br>(注：这个链接可以在guthub上复制下来)</li><li>然后进入 <code>object-name</code> 目录看看，已经有 <code>README.md</code> 文件了.</li></ol></blockquote><h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><blockquote><p>分支是用来将特性开发绝缘开来的。在你创建仓库的时候，master 是“默认的”。在其他分支上进行开发，完成后再将它们合并到主分支上。</p></blockquote><p><strong>图示</strong></p><pre><code>       /----------test--------\      /                        \-----/------------master--------\-----------&gt;   branch                     merge</code></pre><blockquote><p>创建一个叫做“test”的分支，并切换过去：<br><strong><code>git checkout -b test</code></strong><br>切换回主分支：<br><strong><code>git checkout master</code></strong><br>再把新建的分支删掉：<br><strong><code>git branch -d test</code></strong><br>除非你将分支推送到远端仓库，不然该分支就是<em>不为他人所见</em>的：<br><strong><code>git push origin &lt;branch-name&gt;</code></strong></p></blockquote><p><strong>应用</strong></p><ol><li><strong>首先，我们创建dev分支，然后切换到dev分支：</strong><pre><code>$ git checkout -b devSwitched to a new branch 'dev'</code></pre>git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：<pre><code>$ git branch dev$ git checkout devSwitched to branch 'dev'</code></pre><blockquote><p><strong>切换分支另一个属性-switch</strong><br>我们注意到切换分支使用 <strong><code>git checkout &lt;branch&gt;</code></strong> ，而前面讲过的撤销修改则是 <strong><code>git checkout -- &lt;file&gt;</code></strong> ，同一个命令，有两种作用，确实有点令人迷惑。<br>实际上，切换分支这个动作，用switch更科学。因此，最新版本的Git提供了新的 <strong><code>git switch</code></strong> 命令来切换分支：</p><p>创建并切换到新的dev分支，可以使用：</p></blockquote></li></ol><p><strong><code>$ git switch -c dev</code></strong></p><blockquote><p>直接切换到已有的master分支，可以使用：<br><strong><code>$ git switch master</code></strong></p><p>使用新的git switch命令，比git checkout要更容易理解。</p></blockquote><ol start="2"><li><strong>然后，用git branch命令查看当前分支：</strong><br>```<br>$ git branch</li></ol><ul><li>dev<br>master<pre><code>`git branch`命令会列出所有分支，当前分支前面会标一个`*`号。</code></pre></li></ul><p>此时，我们就可以在dev分支上正常提交，比如对readme.txt做个修改，加上一行：</p><p><code>Creating a new branch is quick.</code><br>然后提交：</p><pre><code>$ git add readme.txt $ git commit -m "branch test"[dev b17d20e] branch test 1 file changed, 1 insertion(+)</code></pre><p>现在，<code>dev</code>分支的工作完成，我们就可以切换回<code>master</code>分支：</p><pre><code>$ git checkout masterSwitched to branch 'master'</code></pre><p>切换回master分支后，再查看一下readme.txt文件，刚才添加的内容不见了！因为那个提交是在dev分支上，而master分支此刻的提交点并没有变<br>所有，现在我们要把<code>dev</code>分支的工作成果合并到当前的<code>master</code>分支上：</p><pre><code>git merge dev</code></pre><p><code>git merge</code> 命令用于合并指定分支到当前分支。合并后，再查看 <code>readme.txt</code> 的内容，就可以看到，现在 <code>master</code> 和 <code>dev</code> 分支的最新提交是完全一样的。</p><p>合并完成后，就可以放心地删除<code>dev</code>分支了</p><pre><code>git branch -d dev</code></pre><p>删除后，查看branch，就只剩下master分支了：</p><pre><code>git branch</code></pre><p>因为创建、合并和删除分支非常快，所以Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在master分支上工作效果是一样的，但过程更安全。</p><h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><blockquote><p>在软件发布时创建标签。可以执行如下命令以创建一个叫做 1.0.0 的标签：<br><strong><code>git tag 1.0.0 1b2e1d63ff</code></strong><br><em>1b2e1d63ff</em> 是你想要标记的提交 ID 的前 10 位字符。使用如下命令获取提交 ID：<br><strong><code>git log</code></strong></p></blockquote><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
+  </entry>
+  <entry>
+    <title>java中String对象 和 StringBuilder类的常用方法</title>
+    <url>/java/hou-duan/java-zhong-stringbuilder-lei-de-chang-yong-fang-fa/</url>
+    <content><![CDATA[<hr>
+<h2 id="java中String对象-和-StringBuilder类的常用方法"><a href="#java中String对象-和-StringBuilder类的常用方法" class="headerlink" title="java中String对象 和 StringBuilder类的常用方法"></a>java中String对象 和 StringBuilder类的常用方法</h2><h3 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h3><blockquote>
+<p><code>String</code>类是被<code>final</code>所修饰的，因此<code>String</code>类对象不可变，也不可继承。这里要注意一个误区，<strong>字符串对象不可变，但字符串变量所指的值是可变的，即引用地址可变</strong>。<code>String</code>变量存储的是对<code>String</code>对象的引用，<code>String</code>对象里存储的才是字符串的值.</p>
+</blockquote>
+<a id="more"></a>
+<p><strong>例子如下：</strong></p>
+<blockquote>
+<p><code>String str = "abc"; //str是个对象引用，一个字符串变量</code><br><code>System.out.println(str); //输出abc</code><br><code>str = "abcde"; //str这个字符串变量所指的值可变</code><br><code>System.out.println(str); //输出abcde</code></p>
+</blockquote>
+<blockquote>
+<p>当给<code>str</code>第二次赋值的时候，对象 “abc” 并没有被销毁，仍存放在常量池中（String自带），只是让<code>str</code>指向了 “abcde” 的内存地址，而字符串对象 “abcde” 是新生成的，即<code>str</code>第二次赋值时并不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。记住，对String对象的任何改变都不影响到原对象，相关的任何改变的操作都会生成新的对象。</p>
+</blockquote>
+<p><strong>String的两种赋值方式</strong></p>
+<p><em>区分【String str=”HW”】和【String str=new String(“HW”) 】</em></p>
+<ol>
+<li>字面量赋值方式     eg：String str = “Hello”；</li>
+</ol>
+<blockquote>
+<p>该种直接赋值的方法，JVM会去字符串常量池（String对象不可变）中寻找是否有equals(“Hello”)的String对象，如果有，就把该对象在字符串常量池中”Hello”的引用复制给字符串变量str，如若没有，就在堆中新建一个对象，同时把引用驻留在字符串常量池中，再把引用赋给字符串变量str。<br>用该方法创建字符串时，无论创建多少次，只要字符串的值(内容)相同，那么它们所指向的都是堆中的同一个对象。<br>该方法直接赋值给变量的字符串存放在常量池里</p>
+</blockquote>
+<ol start="2">
+<li>new关键字创建新对象     eg：String str = new String(“Hello”)；</li>
+</ol>
+<blockquote>
+<p>利用new来创建字符串时，无论字符串常量池中是否有与当前值相同的对象引用，都会在堆中新开辟一块内存，创建一个新的对象。</p>
+</blockquote>
+<p>注意：对字符串进行拼接操作，即做”+”运算的时候，分2种情况：</p>
+<blockquote>
+<p>表达式右边是纯字符串常量，那么存放在常量池里面。eg：String str = “Hello” + “World”；<br>表达式右边如果存在字符串引用，也就是字符串对象的句柄，那么就存放在堆里面。eg：String str = str1 + str2；<br>总结：常量池是方法区的一部分，而方法区是线程共享的，所以常量池也是线程共享的，且它是线程安全的，它让有相同值的引用指向同一个位置，如果引用值变化了，但是常量池中没有新的值，那么就会新建一个常量结果来交给新的引用，对于同一个对象，new出来的字符串存放在堆中，而直接赋值给变量的字符串存放在常量池里。</p>
+</blockquote>
+<p><strong>字符串比较：区分 “==” 和 “equals”</strong></p>
+<blockquote>
+<p>“==”：比较引用变量的地址，即两个对象是否引用同一地址的内容，会检测是否指向同一个对象。</p>
+</blockquote>
+<blockquote>
+<p>“equals”：比较对象的内容，即两个对象内容上是否相同</p>
+</blockquote>
+<blockquote>
+<p>字符串用这两种比较方式都是可行的，具体看想要比较什么，总体来看，”==”稍微强大些，因为它既要求内容相同，也要求引用对象相同.</p>
+</blockquote>
+<p><strong>intern() 方法</strong></p>
+<blockquote>
+<p>当使用 intern() 方法时，会先查询字符串常量池是否存在当前字符串，如果存在，则返回常量池中的引用，若不存在，则将字符串添加到字符串常量池中，并返回字符串常量池中的引用。</p>
+</blockquote>
+<p><strong>连接字符串</strong></p>
+<pre><code>public class StringDemo {
+    public static void main(String args[]) {     
+        String string1 = "菜鸟教程网址：";     
+        System.out.println("1、" + string1 + "www.runoob.com");  
+    }
+}</code></pre><p><code>输出</code><br><code>"Hello, runoob!"</code></p>
+<pre><code>public class StringDemo {
+    public static void main(String args[]) {     
+        String string1 = "菜鸟教程网址：";     
+        System.out.println("我的名字是 ".concat("Runoob");) 
+    }
+}</code></pre><p><code>输出</code><br><code>我的名字是 Runoob</code></p>
+<p><strong>创建格式化字符串</strong></p>
+<pre><code>方法一：
+System.out.printf("浮点型变量的值为 " +
+                  "%f, 整型变量的值为 " +
+                  " %d, 字符串变量的值为 " +
+                  "is %s", floatVar, intVar, stringVar);</code></pre><pre><code>方法二：
+String fs;
+fs = String.format("浮点型变量的值为 " +
+                   "%f, 整型变量的值为 " +
+                   " %d, 字符串变量的值为 " +
+                   " %s", floatVar, intVar, stringVar);</code></pre><blockquote>
+<p><strong>注意:</strong><br>String 类的静态方法 format() 能用来创建可复用的格式化字符串，而不仅仅是用于一次打印输出。</p>
+</blockquote>
+<p><strong>String使用方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>0序号</th>
+<th>方法描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1、</td>
+<td>char charAt(int index) <br>返回指定索引处的 char 值。</td>
+</tr>
+<tr>
+<td>2、</td>
+<td>int compareTo(Object o)<br>把这个字符串和另一个对象比较。</td>
+</tr>
+<tr>
+<td>3、</td>
+<td>int compareTo(String anotherString)<br>按字典顺序比较两个字符串。</td>
+</tr>
+<tr>
+<td>4、</td>
+<td>int compareToIgnoreCase(String str)<br>按字典顺序比较两个字符串，不考虑大小写。</td>
+</tr>
+<tr>
+<td>5、</td>
+<td>String concat(String str)<br>将指定字符串连接到此字符串的结尾。</td>
+</tr>
+<tr>
+<td>6、</td>
+<td>boolean contentEquals(StringBuffer sb)<br>当且仅当字符串与指定的StringBuffer有相同顺序的字符时候返回真。</td>
+</tr>
+<tr>
+<td>7、</td>
+<td>static String copyValueOf(char[] data)<br>返回指定数组中表示该字符序列的 String。</td>
+</tr>
+<tr>
+<td>8、</td>
+<td>static String copyValueOf(char[] data, int offset, int count)<br>返回指定数组中表示该字符序列的 String。</td>
+</tr>
+<tr>
+<td>9、</td>
+<td>boolean endsWith(String suffix)<br>测试此字符串是否以指定的后缀结束。</td>
+</tr>
+<tr>
+<td>10、</td>
+<td>boolean equals(Object anObject)<br>将此字符串与指定的对象比较。</td>
+</tr>
+<tr>
+<td>11、</td>
+<td>boolean equalsIgnoreCase(String anotherString)<br>将此 String 与另一个 String 比较，不考虑大小写。</td>
+</tr>
+<tr>
+<td>12、</td>
+<td>byte[] getBytes()<br>使用平台的默认字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</td>
+</tr>
+<tr>
+<td>13、</td>
+<td>byte[] getBytes(String charsetName)<br>使用指定的字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</td>
+</tr>
+<tr>
+<td>14、</td>
+<td>void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)<br>将字符从此字符串复制到目标字符数组。</td>
+</tr>
+<tr>
+<td>15、</td>
+<td>int hashCode()<br>返回此字符串的哈希码。</td>
+</tr>
+<tr>
+<td>16、</td>
+<td>int indexOf(int ch)<br>返回指定字符在此字符串中第一次出现处的索引。</td>
+</tr>
+<tr>
+<td>17、</td>
+<td>int indexOf(int ch, int fromIndex)<br>返回在此字符串中第一次出现指定字符处的索引，从指定的索引开始搜索。</td>
+</tr>
+<tr>
+<td>18、</td>
+<td>int indexOf(String str)<br>返回指定子字符串在此字符串中第一次出现处的索引。</td>
+</tr>
+<tr>
+<td>19、</td>
+<td>int indexOf(String str, int fromIndex)<br>返回指定子字符串在此字符串中第一次出现处的索引，从指定的索引开始。</td>
+</tr>
+<tr>
+<td>20、</td>
+<td>String intern()<br>返回字符串对象的规范化表示形式。</td>
+</tr>
+<tr>
+<td>21、</td>
+<td>int lastIndexOf(int ch)<br>返回指定字符在此字符串中最后一次出现处的索引。</td>
+</tr>
+<tr>
+<td>22、</td>
+<td>int lastIndexOf(int ch, int fromIndex)<br>返回指定字符在此字符串中最后一次出现处的索引，从指定的索引处开始进行反向搜索。</td>
+</tr>
+<tr>
+<td>23、</td>
+<td>int lastIndexOf(String str)返回指定子字符串在此字符串中最右边出现处的索引。</td>
+</tr>
+<tr>
+<td>24、</td>
+<td>int lastIndexOf(String str, int fromIndex)<br>返回指定子字符串在此字符串中最后一次出现处的索引，从指定的索引开始反向搜索。</td>
+</tr>
+<tr>
+<td>25、</td>
+<td>int length()<br>返回此字符串的长度。</td>
+</tr>
+<tr>
+<td>26、</td>
+<td>boolean matches(String regex)<br>告知此字符串是否匹配给定的正则表达式。</td>
+</tr>
+<tr>
+<td>27、</td>
+<td>boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)<br>测试两个字符串区域是否相等。</td>
+</tr>
+<tr>
+<td>28、</td>
+<td>boolean regionMatches(int toffset, String other, int ooffset, int len)<br>测试两个字符串区域是否相等。</td>
+</tr>
+<tr>
+<td>29、</td>
+<td>String replace(char oldChar, char newChar)<br>返回一个新的字符串，它是通过用 newChar 替换此字符串中出现的所有 oldChar 得到的。</td>
+</tr>
+<tr>
+<td>30、</td>
+<td>String replaceAll(String regex, String replacement)<br>使用给定的 replacement 替换此字符串所有匹配给定的正则表达式的子字符串。</td>
+</tr>
+<tr>
+<td>31、</td>
+<td>String replaceFirst(String regex, String replacement)<br>使用给定的 replacement 替换此字符串匹配给定的正则表达式的第一个子字符串。</td>
+</tr>
+<tr>
+<td>32、</td>
+<td>String[] split(String regex)<br>根据给定正则表达式的匹配拆分此字符串。</td>
+</tr>
+<tr>
+<td>33、</td>
+<td>String[] split(String regex, int limit)<br>根据匹配给定的正则表达式来拆分此字符串。</td>
+</tr>
+<tr>
+<td>34、</td>
+<td>boolean startsWith(String prefix)<br>测试此字符串是否以指定的前缀开始。</td>
+</tr>
+<tr>
+<td>35、</td>
+<td>boolean startsWith(String prefix, int toffset)<br>测试此字符串从指定索引开始的子字符串是否以指定前缀开始。</td>
+</tr>
+<tr>
+<td>36、</td>
+<td>CharSequence subSequence(int beginIndex, int endIndex)<br>返回一个新的字符序列，它是此序列的一个子序列。</td>
+</tr>
+<tr>
+<td>37、</td>
+<td>String substring(int beginIndex)<br>返回一个新的字符串，它是此字符串的一个子字符串。</td>
+</tr>
+<tr>
+<td>38、</td>
+<td>String substring(int beginIndex, int endIndex)<br>返回一个新字符串，它是此字符串的一个子字符串。</td>
+</tr>
+<tr>
+<td>39、</td>
+<td>char[] toCharArray()<br>将此字符串转换为一个新的字符数组。</td>
+</tr>
+<tr>
+<td>40、</td>
+<td>String toLowerCase()<br>用默认语言环境的规则将此 String 中的所有字符都转换为小写。</td>
+</tr>
+<tr>
+<td>41、</td>
+<td>String toLowerCase(Locale locale)<br>使用给定 Locale 的规则将此 String 中的所有字符都转换为小写。</td>
+</tr>
+<tr>
+<td>42、</td>
+<td>String toString()<br>返回此对象本身（它已经是一个字符串！）。</td>
+</tr>
+<tr>
+<td>43、</td>
+<td>String toUpperCase()<br>使用默认语言环境的规则将此 String 中的所有字符都转换为大写。</td>
+</tr>
+<tr>
+<td>44、</td>
+<td>String toUpperCase(Locale locale)<br>使用给定 Locale 的规则将此 String 中的所有字符都转换为大写。</td>
+</tr>
+<tr>
+<td>45、</td>
+<td>String trim()<br>返回字符串的副本，忽略前导空白和尾部空白。</td>
+</tr>
+<tr>
+<td>46、</td>
+<td>static String valueOf(primitive data type x)<br>返回给定data type类型x参数的字符串表示形式。</td>
+</tr>
+</tbody></table>
+<h3 id="StringBuffer使用方法"><a href="#StringBuffer使用方法" class="headerlink" title="StringBuffer使用方法"></a>StringBuffer使用方法</h3><pre><code>public class Test{
+  public static void main(String args[]){
+    StringBuffer sBuffer = new StringBuffer("菜鸟教程官网：");
+    sBuffer.append("www");
+    sBuffer.append(".runoob");
+    sBuffer.append(".com");
+    System.out.println(sBuffer);
+  }
+}</code></pre><p><code>输出：</code><br><code>菜鸟教程官网：www.runoob.com</code></p>
+<p><strong>StringBuffer 方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>0序号</th>
+<th>方法描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1、</td>
+<td>public StringBuffer append(String s) <br>将指定的字符串追加到此字符序列。</td>
+</tr>
+<tr>
+<td>2、</td>
+<td>public StringBuffer reverse() <br>将此字符序列用其反转形式取代。</td>
+</tr>
+<tr>
+<td>3、</td>
+<td>public delete(int start, int end) <br>移除此序列的子字符串中的字符。</td>
+</tr>
+<tr>
+<td>4、</td>
+<td>public insert(int offset, int i) <br>将 int 参数的字符串表示形式插入此序列中。</td>
+</tr>
+<tr>
+<td>5、</td>
+<td>replace(int start, int end, String str) <br>使用给定 String 中的字符替换此序列的子字符串中的字符。</td>
+</tr>
+<tr>
+<td>6、</td>
+<td>int capacity() <br>返回当前容量。</td>
+</tr>
+<tr>
+<td>7、</td>
+<td>char charAt(int index) <br>返回此序列中指定索引处的 char 值。</td>
+</tr>
+<tr>
+<td>8、</td>
+<td>void ensureCapacity(int minimumCapacity) <br>确保容量至少等于指定的最小值。</td>
+</tr>
+<tr>
+<td>9、</td>
+<td>void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)<br>将字符从此序列复制到目标字符数组 dst。</td>
+</tr>
+<tr>
+<td>10、</td>
+<td>int indexOf(String str) <br>返回第一次出现的指定子字符串在该字符串中的索引。</td>
+</tr>
+<tr>
+<td>11、</td>
+<td>int indexOf(String str, int fromIndex) <br>从指定的索引处开始，返回第一次出现的指定子字符串在该字符串中的索引。</td>
+</tr>
+<tr>
+<td>12、</td>
+<td>int lastIndexOf(String str) <br>返回最右边出现的指定子字符串在此字符串中的索引。</td>
+</tr>
+<tr>
+<td>13、</td>
+<td>int lastIndexOf(String str, int fromIndex) <br>返回 String 对象中子字符串最后出现的位置。</td>
+</tr>
+<tr>
+<td>14、</td>
+<td>int length() <br>返回长度（字符数）。</td>
+</tr>
+<tr>
+<td>15、</td>
+<td>void setCharAt(int index, char ch) <br>将给定索引处的字符设置为 ch。</td>
+</tr>
+<tr>
+<td>16、</td>
+<td>void setLength(int newLength) <br>设置字符序列的长度。</td>
+</tr>
+<tr>
+<td>17、</td>
+<td>CharSequence subSequence(int start, int end) <br>返回一个新的字符序列，该字符序列是此序列的子序列。</td>
+</tr>
+<tr>
+<td>18、</td>
+<td>String substring(int start) <br>返回一个新的 String，它包含此字符序列当前所包含的字符子序列。</td>
+</tr>
+<tr>
+<td>19、</td>
+<td>String substring(int start, int end) <br>返回一个新的 String，它包含此序列当前所包含的字符子序列。</td>
+</tr>
+<tr>
+<td>20、</td>
+<td>String toString() <br>返回此序列中数据的字符串表示形式。</td>
+</tr>
+</tbody></table>
+<h3 id="StringBuilder-amp-StringBuffer-综合"><a href="#StringBuilder-amp-StringBuffer-综合" class="headerlink" title="StringBuilder  &amp; StringBuffer 综合"></a>StringBuilder  &amp; StringBuffer 综合</h3><blockquote>
+<p>StringBuilder和StringBuffer类类似于String类，但区别在于String创建的对象是不可改变的，而StringBuilder和StringBuffer这两个类创建对象后都是可以对对象进行修改的。即String为字符串常量，而StringBuilder和StringBuffer均为字符串变量</p>
+<p>运行速度（快到慢）：StringBuilder &gt; StringBuffer &gt; String<br>StringBuilder和StringBuffer的对象是变量，对变量进行操作就是直接对该对象进行更改，而不进行像String对象那样子进行创建和回收的操作，所以速度要比String快很多。</p>
+<p>在线程安全上，StringBuilder是线程不安全的，而StringBuffer是线程安全的<br>如果一个StringBuffer对象在字符串缓冲区被多个线程使用时，StringBuffer中很多方法可以带有synchronized关键字，所以可以保证线程是安全的，但StringBuilder的方法则没有该关键字，所以不能保证线程安全，有可能会出现一些错误的操作。所以如果要进行的操作是多线程的，那么就要使用StringBuffer，但是在单线程的情况下，还是建议使用速度比较快的StringBuilder。</p>
+</blockquote>
+<h3 id="字符串拼接五种方法"><a href="#字符串拼接五种方法" class="headerlink" title="字符串拼接五种方法"></a>字符串拼接五种方法</h3><blockquote>
+<ul>
+<li>使用 +</li>
+<li>使用 concat</li>
+<li>使用 StringBuilder</li>
+<li>使用 StringBuffer</li>
+<li>使用 StringUtils.join</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>效率（用时短到长）：StringBuilder &lt; StringBuffer &lt; concat &lt; + &lt; StringUtils.join</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>“+”是Java提供的一个语法糖，而使用+拼接的字符串，它将String转成了StringBuilder后，再使用StringBuilder.append进行处理。如果不是在循环体中进行字符串拼接的话，直接使用+就好了。</li>
+<li>concat方法，其实是new了一个新的String</li>
+<li>StringUtils.join也是通过StringBuilder来实现的</li>
+<li>StringBuffer在StringBuilder的基础上，做了同步处理，所以在耗时上会相对多一些。</li>
+<li>如果在并发场景中进行字符串拼接的话，要使用StringBuffer来替代StringBuilder。因为StringBuilder是线程不安全的，而StringBuffer是线程安全的</li>
+<li>由于String是Java中一个不可变的类，所以他一旦被实例化就无法被修改，因此所有的所谓字符串拼接，都是重新生成了一个新的字符串。</li>
+</ol>
+</blockquote>
+<p><strong>总结：</strong></p>
+<blockquote>
+<p>String：适用于少量的字符串操作的情况<br>StringBuilder：适用于单线程下在字符缓冲区进行大量操作的情况<br>StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <categories>
-          
-          <category> 后端 </category>
-          
+        <category>java</category>
+        <category>后端</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> git </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>java命名规范</title>
-      <link href="/hou-duan/java/java-ming-ming-gui-fan/"/>
-      <url>/hou-duan/java/java-ming-ming-gui-fan/</url>
-      
-        <content type="html"><![CDATA[<hr><h2 id="java命名规范"><a href="#java命名规范" class="headerlink" title="java命名规范"></a>java命名规范</h2><h3 id="项目名"><a href="#项目名" class="headerlink" title="项目名"></a>项目名</h3><ol><li>如果只有一个单词就<strong>全部小写</strong></li><li>两个以上的单词就用 “-”进行分隔,小写<br>可以看到github上面一些著名的开源项目比如apache和spring-boot都是小写，以 xxx-xxx的形式来命名<a id="more"></a><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:1.jpg" alt="图片"><br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:2.jpg" alt="图片"></li></ol><h3 id="包名"><a href="#包名" class="headerlink" title="包名"></a>包名</h3><ol><li><strong>全部小写</strong></li><li>规则可以按[域名反转].[团队名].[项目名].[一级模块].[二级模块]..[N级模块].[类]的格式进行划分，如果功能更多，可以进行更细的包划分<br>如果是组织的话就用 org.xxx.xxx ,比如阿里的dubbo项目<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:3.jpg" alt="图片"><br>如果是公司的项目，就用com.公司名.项目名,比如唯品会的vjtools<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:4.jpg" alt="图片"><br>携程的apollo项目<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:5.jpg" alt="图片"></li></ol><h3 id="类名、接口名"><a href="#类名、接口名" class="headerlink" title="类名、接口名"></a>类名、接口名</h3><ol><li>无论类名只有一个单词或者多个单词组成，<strong>每个单词的首字母都要大写</strong><br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:1.jpg" alt="图片"></li><li>功能性的类可以使用特定关键词作为标记<br>实现类用impl结尾<br>接口+impl<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:7.jpg" alt="图片"><br>抽象类使用Abstract做为类命名的开头<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:8.jpg" alt="图片"><br>异常类命名使用“Exception”做为类命名的结尾<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:9.jpg" alt="图片"><br>单元测试类使用“ Test”做为类命名的结尾<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:10.jpg" alt="图片"></li></ol><h3 id="变量名"><a href="#变量名" class="headerlink" title="变量名"></a>变量名</h3><ol><li>普通变量名<br> • 同方法的命名，一般为名词，<strong>小写</strong>。如：int index=0;<br> • 变量名当有多个单词组成时，<strong>第一个单词首字母小写，后一个单词的首字母大写</strong>（如：myName）</li><li>常量名（静态变量名）</li><li><strong>全部字母大写</strong></li><li>多个单词用<em>下划线分隔</em>。如：public static final String GAME_COLOR=”RED”;<br>(看看Long类源码的定义)<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:11.jpg" alt="图片"></li></ol><h3 id="属性文件properties"><a href="#属性文件properties" class="headerlink" title="属性文件properties"></a>属性文件properties</h3><p>以<strong>下划线</strong>隔开。<br>如：errors_zh_CN.properties， hibernate_test.properties</p><h3 id="数据库命名："><a href="#数据库命名：" class="headerlink" title="数据库命名："></a>数据库命名：</h3><p>表、字段命名<strong>全部大写</strong>，多个单词以 _ 隔开</p><h3 id="注释："><a href="#注释：" class="headerlink" title="注释："></a>注释：</h3><ol><li><strong>注释规范</strong></li><li>单行<br><code>// 这是一个单行注释</code></li><li>多行 <pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/** 这是一个多行注释可以有多行*/</span></code></pre></li></ol><p><strong>基本规则：</strong></p><ul><li>以上的名称的组成元素只能是字母、数字、下划线、$符号</li><li>不要用数字开头</li><li>名称不能使用Java的关键字，比如idea在新建包名的时候出现关键字就会提示包名不合法</li><li>不要出现中文及拼音命名(有些方法命名又有拼音又有英文，就会显得四不像)<br>附(Java关键字列表)：<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:12.jpg" alt="图片"></li></ul><ol start="2"><li><strong>属性注释</strong><br>在每个属性前面必须加上属性注释，注释模板如下：<pre><code>/** 提示信息 */private String strMsg = null;</code></pre></li><li><strong>方法注释</strong><br>在每个方法前面必须加上方法注释，注释模板如下：<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*** @param 参数1               参数1的使用说明* @return                   返回结果的说明* @throws 异常类型.错误代码    注明从此类方法中抛出异常的说明*/</span></code></pre></li><li><strong>构造方法注释</strong><br> • 在每个构造方法前面必须加上注释，注释模板如下：<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*** @param 参数1              参数1的使用说明* @throws 异常类型.错误代码   注明从此类方法中抛出异常的说明*/</span></code></pre></li><li><strong>方法内部注释</strong><br>在方法内部使用单行或者多行注释，该注释根据实际情况添加。如：<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//背景颜色</span>Color bgColor <span class="token operator">=</span> Color<span class="token punctuation">.</span>RED</code></pre></li></ol><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
+      <tags>
+        <tag>StringBuilder</tag>
+        <tag>StringBuffer</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git学习笔记</title>
+    <url>/hou-duan/git-xue-xi-bi-ji/</url>
+    <content><![CDATA[<hr>
+<h2 id="git学习笔记"><a href="#git学习笔记" class="headerlink" title="git学习笔记"></a>git学习笔记</h2><h3 id="何为git？"><a href="#何为git？" class="headerlink" title="何为git？"></a>何为git？</h3><blockquote>
+<p>Git是目前世界上最先进的分布式版本控制系统, 为了快速高效地处理小或大型项目的所有内容。通过对信息的压缩和摘要，使得所占空间非常小，但能够支持项目版本迅速迭代的开发工具。</p>
+</blockquote>
+<h3 id="SVN与Git的的区别？"><a href="#SVN与Git的的区别？" class="headerlink" title="SVN与Git的的区别？"></a>SVN与Git的的区别？</h3><blockquote>
+<p>所有的版本控制系统只能跟踪文本文件的改动，比如TXT文件，网页，所有的程序代码等等</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>SVN是集中式版本控制系统，版本库是集中放在中央服务器的，而干活的时候，用的都是自己的电脑，所以首先要从中央服务器哪里得到最新的版本，然后干活，干完后，需要把自己做完的活推送到中央服务器。集中式版本控制系统是必须联网才能工作，如果在局域网还可以，带宽够大，速度够快，如果在互联网下，如果网速慢的话，就纳闷了。</p>
+</blockquote>
+<blockquote>
+<p>Git是分布式版本控制系统，那么它就没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本都是在自己的电脑上。既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说自己在电脑上改了文件A，其他人也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
+</blockquote>
+<h3 id="Git的分区"><a href="#Git的分区" class="headerlink" title="Git的分区"></a>Git的分区</h3><blockquote>
+<p>工作区，也叫Working Directory<br>暂存区，也叫Stage 或 Index<br>版本库，也叫本地仓库，Commit History</p>
+</blockquote>
+<p><strong>工作区</strong></p>
+<blockquote>
+<p>工作区应该不陌生，就是我们能看见，直接编辑的工作区域。对于一些新增的文件，如果没有被add到暂存区，就会以<strong>红色</strong>的形式放置在工作区。</p>
+</blockquote>
+<p><strong>暂存区</strong></p>
+<blockquote>
+<p>数据暂时存放的区域，对于执行 <strong><code>add .</code></strong> 后的文件就算是进入暂存区啦。可以理解为数据进入 <em>本地代码仓库</em> 之前存放的区域。由于还没对本地仓库生效，所以是数据暂时存放的区域。<br>对暂存区的文件<em>修改</em>后，会以<strong>蓝色</strong>的形式显示。如果第一次创建并add到暂存区的文件，由于远程仓库没有同步，所以会显示<strong>绿色</strong>。<br>注：存放在 “.git目录下” 下的index文件 <strong>.git/index</strong> </p>
+</blockquote>
+<p><strong>版本库</strong></p>
+<blockquote>
+<p>对暂存区的代码执行 <strong>commit</strong> 会被放入版本库中。可以理解为一个<em>本地的代码仓库</em>，<strong>push</strong> 的时候，才会把版本库的数据全都发送到<em>远程仓库</em>中。<br>注：存放在工作区中“.git”目录下，<strong>.git</strong></p>
+</blockquote>
+<p><strong>图示</strong></p>
+<pre><code>|-------|                    |----------------------------------|
+| 工作区 |                    | 版本库                            |
+|       |                    |  |-----|               |------|  |
+|       |--------add-------&gt; |  |index| ---commit---&gt; |master|  |
+|       |                    |  |     |               |      |  |
+|       |                    |  |-----|               |------|  |
+|-------|                    |----------------------------------|</code></pre><h3 id="git的指令"><a href="#git的指令" class="headerlink" title="git的指令"></a>git的指令</h3><p><strong>创建新的仓库</strong></p>
+<blockquote>
+<p>创建新文件夹，终端进入，然后执行 <strong><code>git init</code></strong> 以创建新的 git 仓库。</p>
+</blockquote>
+<p><strong>检出仓库</strong></p>
+<blockquote>
+<p>执行如下命令以创建一个本地仓库的克隆版本：<br><strong><code>git clone /path/to/repository</code></strong><br>如果是远端服务器上的仓库，你的命令会是这个样子：<br><strong><code>git clone username@host:/path/to/repository</code></strong></p>
+</blockquote>
+<p><strong>添加与提交</strong></p>
+<blockquote>
+<p>你可以把文件添加到缓存区，使用如下命令：<br><strong><code>git add &lt;filename&gt;</code></strong><br><strong><code>git add *</code></strong><br>然后使用如下命令以实际提交改动：<br><strong><code>git commit -m "代码提交信息"</code></strong><br>现在，你的改动已经提交到了 <em>本地仓库</em>，但是还没到你的 <em>远端仓库</em>。</p>
+</blockquote>
+<p><strong>推送改动</strong></p>
+<blockquote>
+<p>你的改动现在已经在本地仓库的 HEAD 中了。执行如下命令以将这些改动提交到<em>远端仓库<em>：<br>*</em><code>git push origin master</code>**<br>当然，可以把 *master</em> 换成你想要推送的任何分支。<br>如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：<br><strong><code>git remote add origin &lt;server&gt;</code></strong><br>如此你就能够将你的改动推送到所添加的服务器上去了。</p>
+<p>提交后，查看工作区和版本库里面最新版本的区别：<br><code>git diff HEAD -- &lt;file-name&gt;</code></p>
+</blockquote>
+<h3 id="更新与合并"><a href="#更新与合并" class="headerlink" title="更新与合并"></a>更新与合并</h3><blockquote>
+<p>要更新你的本地仓库至最新改动，执行：<br><strong><code>git pull</code></strong><br>以在你的工作目录中 获取（fetch） 并 合并（merge） 远端的改动。<br>要合并其他分支到你的当前分支（例如 master），执行：<br><strong><code>git merge &lt;branch-name&gt;</code></strong><br>两种情况下，git 都会尝试去自动合并改动。不幸的是，自动合并并非次次都能成功，并可能导致 冲突（conflicts）。 这时候就需要你修改这些文件来人肉合并这些 冲突（conflicts） 了。改完之后，你需要执行如下命令以将它们标记为合并成功：<br><strong><code>git add &lt;filename&gt;</code></strong><br>在合并改动之前，也可以使用如下命令查看：<br><strong><code>git diff &lt;source_branch&gt; &lt;target_branch&gt;</code></strong></p>
+</blockquote>
+<h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><blockquote>
+<p>用HEAD表示当前版本，上一个版本就是 <strong>HEAD^</strong>, 上上一个版本就是 <strong>HEAD^^</strong>, 当然往上100个版本写100个^比较容易数不过来，所以写成 <strong>HEAD~100</strong>。</p>
+<p>例如：后退到上一个版本<br><code>git reset --hard HEAD^</code></p>
+<p>后退到指定版本<br><code>git reset --hard commit_id</code></p>
+<p>穿梭前，用git log可以查看提交历史, 项目修改过程，以便确定要回退到哪个版本。</p>
+<p>要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本</p>
+</blockquote>
+<h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><blockquote>
+<ol>
+<li>一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；<br>丢弃工作区的修改：<br><code>git checkout -- filename</code></li>
+<li>另一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。<br>把暂存区的修改撤销掉（unstage），重新放回工作区:<br><code>git reset HEAD &lt;file-name&gt;</code><br>然后丢弃工作区的修改:<br><code>git checkout -- &lt;file-name&gt;</code></li>
+</ol>
+<p>总之，就是让这个文件回到最近一次 <code>git commit</code> 或 <code>git add</code> 时的状态。可以用 <code>git status</code> 查看一下文件状态。</p>
+</blockquote>
+<h3 id="文件删除"><a href="#文件删除" class="headerlink" title="文件删除"></a>文件删除</h3><blockquote>
+<ol>
+<li>确定删除<br>文件中删掉该文件<br><code>rm &lt;file-name&gt;</code><br>git版本中删除<br><code>git rm &lt;file-name&gt;</code><br>提交<br><code>git commit -m "remove &lt;file-name&gt;"</code></li>
+<li>误删并撤回<br>文件中误删该文件<br><code>rm &lt;file-name&gt;</code><br>git撤销操作<br><code>git checkout -- &lt;file-name&gt;</code></li>
+</ol>
+</blockquote>
+<h3 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h3><blockquote>
+<ul>
+<li>背景：先有本地库，后有远程库的时候，如何关联远程库 ?</li>
+</ul>
+<ol>
+<li>登陆GitHub，然后在右上角找到 “<code>Create a new repo</code>” 按钮，创建一个新的仓库。</li>
+<li>目前，在GitHub上的这个仓库还是空的，GitHub告诉我们，可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库。</li>
+<li>现在，我们根据GitHub的提示，在本地的这个仓库下运行命令：<br><code>git remote add origin git@github.com:wenzonghui/object-name.git</code></li>
+<li>下一步，就可以把本地库的所有内容推送到远程库上(因为第一次push，要加上 <code>-u</code>)<br><code>git push -u origin master</code></li>
+</ol>
+<ul>
+<li>把本地库的内容推送到远程，用 <code>git push</code> 命令，实际上是把当前分支 <code>master</code> 推送到远程。<br>推送成功后，可以立刻在GitHub页面中看到远程库的内容已经和本地一模一样：<br>从现在起，只要本地作了提交，就可以通过命令：<br><code>git push origin master</code><br>把本地master分支的最新修改推送至GitHub</li>
+</ul>
+</blockquote>
+<h3 id="从远程仓库克隆"><a href="#从远程仓库克隆" class="headerlink" title="从远程仓库克隆"></a>从远程仓库克隆</h3><blockquote>
+<ul>
+<li>背景：假设我们从零开发，那么最好的方式是先创建远程库，然后，从远程库克隆</li>
+</ul>
+<ol>
+<li>首先，登陆GitHub，创建一个新的仓库，名字叫 <code>object-name</code><br>勾选 <code>Initialize this repository with a README</code> ，这样GitHub会自动为我们创建一个 <code>README.md</code> 文件</li>
+<li>现在，远程库已经准备好了，下一步是用命令 <code>git clone</code> 克隆一个本地库：<br><code>git clone git@github.com:wenzonghui/object-name.git</code><br>(注：这个链接可以在guthub上复制下来)</li>
+<li>然后进入 <code>object-name</code> 目录看看，已经有 <code>README.md</code> 文件了.</li>
+</ol>
+</blockquote>
+<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><blockquote>
+<p>分支是用来将特性开发绝缘开来的。在你创建仓库的时候，master 是“默认的”。在其他分支上进行开发，完成后再将它们合并到主分支上。</p>
+</blockquote>
+<p><strong>图示</strong></p>
+<pre><code>       /----------test--------\
+      /                        \
+-----/------------master--------\-----------&gt;
+   branch                     merge</code></pre><blockquote>
+<p>创建一个叫做“test”的分支，并切换过去：<br><strong><code>git checkout -b test</code></strong><br>切换回主分支：<br><strong><code>git checkout master</code></strong><br>再把新建的分支删掉：<br><strong><code>git branch -d test</code></strong><br>除非你将分支推送到远端仓库，不然该分支就是<em>不为他人所见</em>的：<br><strong><code>git push origin &lt;branch-name&gt;</code></strong></p>
+</blockquote>
+<p><strong>应用</strong></p>
+<ol>
+<li><strong>首先，我们创建dev分支，然后切换到dev分支：</strong><pre><code>$ git checkout -b dev
+Switched to a new branch 'dev'</code></pre>git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：<pre><code>$ git branch dev
+$ git checkout dev
+Switched to branch 'dev'</code></pre><blockquote>
+<p><strong>切换分支另一个属性-switch</strong><br>我们注意到切换分支使用 <strong><code>git checkout &lt;branch&gt;</code></strong> ，而前面讲过的撤销修改则是 <strong><code>git checkout -- &lt;file&gt;</code></strong> ，同一个命令，有两种作用，确实有点令人迷惑。<br>实际上，切换分支这个动作，用switch更科学。因此，最新版本的Git提供了新的 <strong><code>git switch</code></strong> 命令来切换分支：</p>
+<p>创建并切换到新的dev分支，可以使用：</p>
+</blockquote>
+</li>
+</ol>
+<p><strong><code>$ git switch -c dev</code></strong></p>
+<blockquote>
+<p>直接切换到已有的master分支，可以使用：<br><strong><code>$ git switch master</code></strong></p>
+<p>使用新的git switch命令，比git checkout要更容易理解。</p>
+</blockquote>
+<ol start="2">
+<li><strong>然后，用git branch命令查看当前分支：</strong><br>```<br>$ git branch</li>
+</ol>
+<ul>
+<li>dev<br>master<pre><code>`git branch`命令会列出所有分支，当前分支前面会标一个`*`号。
+</code></pre></li>
+</ul>
+<p>此时，我们就可以在dev分支上正常提交，比如对readme.txt做个修改，加上一行：</p>
+<p><code>Creating a new branch is quick.</code><br>然后提交：</p>
+<pre><code>$ git add readme.txt 
+$ git commit -m "branch test"
+[dev b17d20e] branch test
+ 1 file changed, 1 insertion(+)</code></pre><p>现在，<code>dev</code>分支的工作完成，我们就可以切换回<code>master</code>分支：</p>
+<pre><code>$ git checkout master
+Switched to branch 'master'</code></pre><p>切换回master分支后，再查看一下readme.txt文件，刚才添加的内容不见了！因为那个提交是在dev分支上，而master分支此刻的提交点并没有变<br>所有，现在我们要把<code>dev</code>分支的工作成果合并到当前的<code>master</code>分支上：</p>
+<pre><code>git merge dev</code></pre><p><code>git merge</code> 命令用于合并指定分支到当前分支。合并后，再查看 <code>readme.txt</code> 的内容，就可以看到，现在 <code>master</code> 和 <code>dev</code> 分支的最新提交是完全一样的。</p>
+<p>合并完成后，就可以放心地删除<code>dev</code>分支了</p>
+<pre><code>git branch -d dev</code></pre><p>删除后，查看branch，就只剩下master分支了：</p>
+<pre><code>git branch</code></pre><p>因为创建、合并和删除分支非常快，所以Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在master分支上工作效果是一样的，但过程更安全。</p>
+<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><blockquote>
+<p>在软件发布时创建标签。可以执行如下命令以创建一个叫做 1.0.0 的标签：<br><strong><code>git tag 1.0.0 1b2e1d63ff</code></strong><br><em>1b2e1d63ff</em> 是你想要标记的提交 ID 的前 10 位字符。使用如下命令获取提交 ID：<br><strong><code>git log</code></strong></p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <categories>
-          
-          <category> 后端 </category>
-          
-          <category> java </category>
-          
+        <category>后端</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 命名 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>博客搭建</title>
-      <link href="/ri-zhi/bo-ke-da-jian/"/>
-      <url>/ri-zhi/bo-ke-da-jian/</url>
-      
-        <content type="html"><![CDATA[<hr><h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><p>经过几天的学习，成功搭建了这个博客。以后就作为自己记录和分享的后花园。希望自己能够成为这个行业的大牛，也能够通过自己的分享来帮助后来人。</p><h3 id="博客分为：日志、分类、标签、关于等几项内容"><a href="#博客分为：日志、分类、标签、关于等几项内容" class="headerlink" title="博客分为：日志、分类、标签、关于等几项内容"></a>博客分为：日志、分类、标签、关于等几项内容</h3><a id="more"></a><pre class=" language-html"><code class="language-html">日志：用来记录生活琐事，所想所感分类：通过标签来将文章分类标签：来标识文章</code></pre><h3 id="此博客使用markdown"><a href="#此博客使用markdown" class="headerlink" title="此博客使用markdown"></a>此博客使用markdown</h3><h5 id="以下为markdown学习笔记"><a href="#以下为markdown学习笔记" class="headerlink" title="以下为markdown学习笔记"></a>以下为markdown学习笔记</h5><p><strong>1、标题</strong><br>标题的语法是：# 标题。前面的#号个数表示标题的级别，1个#表示一级标题，2个#号表示二级标题，以次类推，最多6级。如下所示，括号内容表示在markdown中输入的内容。</p><pre class=" language-ruby"><code class="language-ruby"><span class="token comment" spellcheck="true">#       一级标题</span><span class="token comment" spellcheck="true">##      二级标题</span><span class="token comment" spellcheck="true">###     三级标题</span><span class="token comment" spellcheck="true">####    四级标题</span><span class="token comment" spellcheck="true">#####   五级标题</span><span class="token comment" spellcheck="true">######  六级标题</span></code></pre><p><strong>2、列表</strong></p><p><strong>2.1</strong> 有序列表，格式是：1. xxx 即，数字接着一个英文句点开头。</p><pre class=" language-html"><code class="language-html">1. Item12. Item2    2.1. Item2.1    2.2. Item2.2</code></pre><p><strong>2.2</strong> 无序列表，格式是：以“-”或“*”或“+”开头即可。注意，开头符号与内容之间有一个空格！</p><ul><li>Item1     <code>- Item1</code></li></ul><ul><li>Item2     <code>+ Item2</code></li></ul><ul><li>Item3     <code>* Item3</code></li></ul><p><strong>3、强调</strong></p><p><em>这是斜体</em>      <code>*这是斜体*</code><br><em>这是斜体</em>      <code>_这是斜体_</code><br><strong>这是加粗</strong>    <code>**这是加粗**</code><br><strong>这是加粗</strong>    <code>__这是加粗__</code><br><del>这是删除</del>    <code>~~这是删除~~</code></p><p><strong>4、代码引用</strong></p><p><strong>4.1</strong> 引用讲话<br>正如xxx所说：</p><blockquote><p>balabalabala<br>bbbbbbbbbbbbbbbbb</p></blockquote><p><strong>4.2</strong> 一行代码可以用“ ` ”号将代码包围起来。<br>例如：<code>这是一行代码</code><br><code>this is a line of code</code></p><p><strong>4.3</strong> 如果是多行代码，可以将“ ``` ”置于代码的首行和末行。<br>例如：</p><pre class=" language-html"><code class="language-html">第一行代码第二行代码...第N行代码</code></pre><pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>示例代码<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>使用“ ``` ”将代码包围起来，“ ``` ”后面可以跟语言的类型，例如“ ```html  ...代码部分...``` ”<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre><p><strong>5、分割线</strong></p><pre><code>___或者---或者***</code></pre><hr><hr><hr><p><strong>6、超链接</strong></p><p><strong>6.1</strong> 文字链接，格式是：<strong>[文本](链接)</strong></p><p><a href="http://github.com" target="_blank" rel="noopener">GitHub</a> <code>[GitHub](http://github.com)</code></p><p><strong>6.2</strong> 图片链接，格式是：<strong>![文本](图片链接)</strong></p><pre><code>![图片](https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp)</code></pre><p><img src="https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp" alt="图片"></p><p><strong>6.3</strong> 插入音频，使用插件 hexo-tag-aplayer<br>从网易云网站获取音乐链接</p><pre><code>&lt;iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&amp;id=34341360&amp;auto=0&amp;height=66"&gt;&lt;/iframe&gt;</code></pre><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&amp;id=34341360&amp;auto=0&amp;height=66"></iframe><p><strong>6.4</strong> 插入视频，使用iframe<br>从视频网站获得视频资源</p><pre><code>&lt;iframe src="//player.bilibili.com/player.html?aid=6117110&amp;cid=9931722&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"&gt; &lt;/iframe&gt;</code></pre><iframe src="//player.bilibili.com/player.html?aid=6117110&amp;cid=9931722&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe><p><strong>7、表格</strong></p><pre><code>苹果    |草莓  |石榴-|-|-苹果    |草莓  |石榴苹果    |草莓  |石榴苹果    |草莓  |石榴 </code></pre><table><thead><tr><th>苹果</th><th>草莓</th><th>石榴</th></tr></thead><tbody><tr><td>苹果</td><td>草莓</td><td>石榴</td></tr><tr><td>苹果</td><td>草莓</td><td>石榴</td></tr><tr><td>苹果</td><td>草莓</td><td>石榴</td></tr></tbody></table><pre><code>|dog  | bird | cat ||-----|------|-----||bar  | bear | box ||bar  | bear | box |</code></pre><table><thead><tr><th>dog</th><th>bird</th><th>cat</th></tr></thead><tbody><tr><td>bar</td><td>bear</td><td>box</td></tr><tr><td>bar</td><td>bear</td><td>box</td></tr></tbody></table><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java命名规范</title>
+    <url>/hou-duan/java/java-ming-ming-gui-fan/</url>
+    <content><![CDATA[<hr>
+<h2 id="java命名规范"><a href="#java命名规范" class="headerlink" title="java命名规范"></a>java命名规范</h2><h3 id="项目名"><a href="#项目名" class="headerlink" title="项目名"></a>项目名</h3><ol>
+<li>如果只有一个单词就<strong>全部小写</strong></li>
+<li>两个以上的单词就用 “-”进行分隔,小写<br>可以看到github上面一些著名的开源项目比如apache和spring-boot都是小写，以 xxx-xxx的形式来命名<a id="more"></a>
+<img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:1.jpg" alt="图片"><br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:2.jpg" alt="图片"></li>
+</ol>
+<h3 id="包名"><a href="#包名" class="headerlink" title="包名"></a>包名</h3><ol>
+<li><strong>全部小写</strong></li>
+<li>规则可以按[域名反转].[团队名].[项目名].[一级模块].[二级模块]..[N级模块].[类]的格式进行划分，如果功能更多，可以进行更细的包划分<br>如果是组织的话就用 org.xxx.xxx ,比如阿里的dubbo项目<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:3.jpg" alt="图片"><br>如果是公司的项目，就用com.公司名.项目名,比如唯品会的vjtools<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:4.jpg" alt="图片"><br>携程的apollo项目<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:5.jpg" alt="图片"></li>
+</ol>
+<h3 id="类名、接口名"><a href="#类名、接口名" class="headerlink" title="类名、接口名"></a>类名、接口名</h3><ol>
+<li>无论类名只有一个单词或者多个单词组成，<strong>每个单词的首字母都要大写</strong><br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:1.jpg" alt="图片"></li>
+<li>功能性的类可以使用特定关键词作为标记<br>实现类用impl结尾<br>接口+impl<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:7.jpg" alt="图片"><br>抽象类使用Abstract做为类命名的开头<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:8.jpg" alt="图片"><br>异常类命名使用“Exception”做为类命名的结尾<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:9.jpg" alt="图片"><br>单元测试类使用“ Test”做为类命名的结尾<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:10.jpg" alt="图片"></li>
+</ol>
+<h3 id="变量名"><a href="#变量名" class="headerlink" title="变量名"></a>变量名</h3><ol>
+<li>普通变量名<br> • 同方法的命名，一般为名词，<strong>小写</strong>。如：int index=0;<br> • 变量名当有多个单词组成时，<strong>第一个单词首字母小写，后一个单词的首字母大写</strong>（如：myName）</li>
+<li>常量名（静态变量名）</li>
+<li><strong>全部字母大写</strong></li>
+<li>多个单词用<em>下划线分隔</em>。如：public static final String GAME_COLOR=”RED”;<br>(看看Long类源码的定义)<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:11.jpg" alt="图片"></li>
+</ol>
+<h3 id="属性文件properties"><a href="#属性文件properties" class="headerlink" title="属性文件properties"></a>属性文件properties</h3><p>以<strong>下划线</strong>隔开。<br>如：errors_zh_CN.properties， hibernate_test.properties</p>
+<h3 id="数据库命名："><a href="#数据库命名：" class="headerlink" title="数据库命名："></a>数据库命名：</h3><p>表、字段命名<strong>全部大写</strong>，多个单词以 _ 隔开</p>
+<h3 id="注释："><a href="#注释：" class="headerlink" title="注释："></a>注释：</h3><ol>
+<li><strong>注释规范</strong></li>
+<li>单行<br><code>// 这是一个单行注释</code></li>
+<li>多行 <pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/** 这是一个多行注释
+可以有多行*/</span></code></pre>
+</li>
+</ol>
+<p><strong>基本规则：</strong></p>
+<ul>
+<li>以上的名称的组成元素只能是字母、数字、下划线、$符号</li>
+<li>不要用数字开头</li>
+<li>名称不能使用Java的关键字，比如idea在新建包名的时候出现关键字就会提示包名不合法</li>
+<li>不要出现中文及拼音命名(有些方法命名又有拼音又有英文，就会显得四不像)<br>附(Java关键字列表)：<br><img src="https://github.com/wenzonghui/store-something/blob/master/2020:1:6:12.jpg" alt="图片"></li>
+</ul>
+<ol start="2">
+<li><strong>属性注释</strong><br>在每个属性前面必须加上属性注释，注释模板如下：<pre><code>/** 提示信息 */
+private String strMsg = null;</code></pre></li>
+<li><strong>方法注释</strong><br>在每个方法前面必须加上方法注释，注释模板如下：<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+* @param 参数1               参数1的使用说明
+* @return                   返回结果的说明
+* @throws 异常类型.错误代码    注明从此类方法中抛出异常的说明
+*/</span></code></pre>
+</li>
+<li><strong>构造方法注释</strong><br> • 在每个构造方法前面必须加上注释，注释模板如下：<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+* @param 参数1              参数1的使用说明
+* @throws 异常类型.错误代码   注明从此类方法中抛出异常的说明
+*/</span></code></pre>
+</li>
+<li><strong>方法内部注释</strong><br>在方法内部使用单行或者多行注释，该注释根据实际情况添加。如：<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//背景颜色</span>
+Color bgColor <span class="token operator">=</span> Color<span class="token punctuation">.</span>RED</code></pre>
+</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <categories>
-          
-          <category> 日志 </category>
-          
+        <category>后端</category>
+        <category>java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> markdown </tag>
-            
-            <tag> 博客 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>命名</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>博客搭建</title>
+    <url>/ri-zhi/bo-ke-da-jian/</url>
+    <content><![CDATA[<hr>
+<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><p>经过几天的学习，成功搭建了这个博客。以后就作为自己记录和分享的后花园。希望自己能够成为这个行业的大牛，也能够通过自己的分享来帮助后来人。</p>
+<h3 id="博客分为：日志、分类、标签、关于等几项内容"><a href="#博客分为：日志、分类、标签、关于等几项内容" class="headerlink" title="博客分为：日志、分类、标签、关于等几项内容"></a>博客分为：日志、分类、标签、关于等几项内容</h3><a id="more"></a>
+<pre class=" language-html"><code class="language-html">日志：用来记录生活琐事，所想所感
+分类：通过标签来将文章分类
+标签：来标识文章</code></pre>
+<h3 id="此博客使用markdown"><a href="#此博客使用markdown" class="headerlink" title="此博客使用markdown"></a>此博客使用markdown</h3><h5 id="以下为markdown学习笔记"><a href="#以下为markdown学习笔记" class="headerlink" title="以下为markdown学习笔记"></a>以下为markdown学习笔记</h5><p><strong>1、标题</strong><br>标题的语法是：# 标题。前面的#号个数表示标题的级别，1个#表示一级标题，2个#号表示二级标题，以次类推，最多6级。如下所示，括号内容表示在markdown中输入的内容。</p>
+<pre class=" language-ruby"><code class="language-ruby"><span class="token comment" spellcheck="true">#       一级标题</span>
+<span class="token comment" spellcheck="true">##      二级标题</span>
+<span class="token comment" spellcheck="true">###     三级标题</span>
+<span class="token comment" spellcheck="true">####    四级标题</span>
+<span class="token comment" spellcheck="true">#####   五级标题</span>
+<span class="token comment" spellcheck="true">######  六级标题</span></code></pre>
+<p><strong>2、列表</strong></p>
+<p><strong>2.1</strong> 有序列表，格式是：1. xxx 即，数字接着一个英文句点开头。</p>
+<pre class=" language-html"><code class="language-html">1. Item1
+2. Item2
+    2.1. Item2.1
+    2.2. Item2.2</code></pre>
+<p><strong>2.2</strong> 无序列表，格式是：以“-”或“*”或“+”开头即可。注意，开头符号与内容之间有一个空格！</p>
+<ul>
+<li>Item1     <code>- Item1</code></li>
+</ul>
+<ul>
+<li>Item2     <code>+ Item2</code></li>
+</ul>
+<ul>
+<li>Item3     <code>* Item3</code></li>
+</ul>
+<p><strong>3、强调</strong></p>
+<p><em>这是斜体</em>      <code>*这是斜体*</code><br><em>这是斜体</em>      <code>_这是斜体_</code><br><strong>这是加粗</strong>    <code>**这是加粗**</code><br><strong>这是加粗</strong>    <code>__这是加粗__</code><br><del>这是删除</del>    <code>~~这是删除~~</code></p>
+<p><strong>4、代码引用</strong></p>
+<p><strong>4.1</strong> 引用讲话<br>正如xxx所说：</p>
+<blockquote>
+<p>balabalabala<br>bbbbbbbbbbbbbbbbb</p>
+</blockquote>
+<p><strong>4.2</strong> 一行代码可以用“ ` ”号将代码包围起来。<br>例如：<code>这是一行代码</code><br><code>this is a line of code</code></p>
+<p><strong>4.3</strong> 如果是多行代码，可以将“ ``` ”置于代码的首行和末行。<br>例如：</p>
+<pre class=" language-html"><code class="language-html">第一行代码
+第二行代码
+...
+第N行代码</code></pre>
+<pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>示例代码<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>使用“ ``` ”将代码包围起来，“ ``` ”后面可以跟语言的类型，例如“ ```html  ...代码部分...``` ”<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
+<p><strong>5、分割线</strong></p>
+<pre><code>___或者
+---或者
+***</code></pre><hr>
+<hr>
+<hr>
+<p><strong>6、超链接</strong></p>
+<p><strong>6.1</strong> 文字链接，格式是：<strong>[文本](链接)</strong></p>
+<p><a href="http://github.com" target="_blank" rel="noopener">GitHub</a> <code>[GitHub](http://github.com)</code></p>
+<p><strong>6.2</strong> 图片链接，格式是：<strong>![文本](图片链接)</strong></p>
+<pre><code>![图片](https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp)</code></pre><p><img src="https://cn.bing.com/th?id=OHR.TrakaiLithuania_ROW2474089682_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp" alt="图片"></p>
+<p><strong>6.3</strong> 插入音频，使用插件 hexo-tag-aplayer<br>从网易云网站获取音乐链接</p>
+<pre><code>&lt;iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&amp;id=34341360&amp;auto=0&amp;height=66"&gt;&lt;/iframe&gt;</code></pre><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&amp;id=34341360&amp;auto=0&amp;height=66"></iframe>
+
+<p><strong>6.4</strong> 插入视频，使用iframe<br>从视频网站获得视频资源</p>
+<pre><code>&lt;iframe src="//player.bilibili.com/player.html?aid=6117110&amp;cid=9931722&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"&gt; &lt;/iframe&gt;</code></pre><iframe src="//player.bilibili.com/player.html?aid=6117110&amp;cid=9931722&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+
+<p><strong>7、表格</strong></p>
+<pre><code>苹果    |草莓  |石榴
+-|-|-
+苹果    |草莓  |石榴
+苹果    |草莓  |石榴
+苹果    |草莓  |石榴 </code></pre><table>
+<thead>
+<tr>
+<th>苹果</th>
+<th>草莓</th>
+<th>石榴</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>苹果</td>
+<td>草莓</td>
+<td>石榴</td>
+</tr>
+<tr>
+<td>苹果</td>
+<td>草莓</td>
+<td>石榴</td>
+</tr>
+<tr>
+<td>苹果</td>
+<td>草莓</td>
+<td>石榴</td>
+</tr>
+</tbody></table>
+<pre><code>|dog  | bird | cat |
+|-----|------|-----|
+|bar  | bear | box |
+|bar  | bear | box |</code></pre><table>
+<thead>
+<tr>
+<th>dog</th>
+<th>bird</th>
+<th>cat</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bar</td>
+<td>bear</td>
+<td>box</td>
+</tr>
+<tr>
+<td>bar</td>
+<td>bear</td>
+<td>box</td>
+</tr>
+</tbody></table>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>日志</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+        <tag>博客</tag>
+      </tags>
+  </entry>
 </search>
