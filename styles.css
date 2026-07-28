@@ -121,8 +121,8 @@ nav a:hover {
   display: block;
   border-radius: 4px;
   object-fit: cover;
-  aspect-ratio: 1 / 1;
-  filter: saturate(0.88);
+  object-position: 50% 22%;
+  aspect-ratio: 4 / 5;
   box-shadow: 12px 12px 0 var(--blue-soft);
 }
 
@@ -283,35 +283,10 @@ h3 {
   white-space: nowrap;
 }
 
-.interest-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--line);
-  background: var(--paper);
-}
-
-.interest-grid article {
-  min-height: 230px;
-  padding: 30px;
-}
-
-.interest-grid article + article {
-  border-left: 1px solid var(--line);
-}
-
-.interest-grid span {
-  display: block;
-  margin-bottom: 38px;
-  color: var(--highlight);
-  font-family: var(--serif);
-  font-size: 1.08rem;
-  font-weight: 700;
-}
-
-.interest-grid p {
-  margin-bottom: 0;
-  color: var(--muted);
-  font-size: 0.92rem;
+.publication-image-note {
+  margin: -30px 0 24px;
+  color: #8a949d;
+  font-size: 0.78rem;
 }
 
 .publication-list {
@@ -320,10 +295,53 @@ h3 {
 
 .publication {
   display: grid;
-  grid-template-columns: 80px minmax(0, 1fr);
-  gap: 28px;
-  padding-block: 30px 32px;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 30px;
+  align-items: start;
+  padding-block: 32px 34px;
   border-bottom: 1px solid var(--line);
+}
+
+.publication-thumb {
+  width: 100%;
+  min-height: 126px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background-color: var(--wash);
+  background-image: url("https://github.com/user-attachments/assets/074b6141-0e43-4f7f-bf49-dc5f11a598d8");
+  background-repeat: no-repeat;
+  background-size: 500% 100%;
+  box-shadow: 5px 5px 0 var(--blue-soft);
+}
+
+.publication-thumb-yolov10 {
+  background-position: 0% center;
+}
+
+.publication-thumb-driving {
+  background-position: 25% center;
+}
+
+.publication-thumb-adaptive {
+  background-position: 50% center;
+}
+
+.publication-thumb-uav {
+  background-position: 75% center;
+}
+
+.publication-thumb-temporal {
+  background-position: 100% center;
+}
+
+.publication-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 16px;
+  margin-bottom: 9px;
 }
 
 .publication-year {
@@ -331,6 +349,10 @@ h3 {
   font-family: var(--serif);
   font-size: 1.15rem;
   font-weight: 700;
+}
+
+.publication-meta .publication-type {
+  margin-bottom: 0;
 }
 
 .publication h3 {
@@ -461,21 +483,9 @@ footer {
     padding-block: 64px 76px;
   }
 
-  .interest-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .interest-grid article {
-    min-height: 0;
-  }
-
-  .interest-grid article + article {
-    border-top: 1px solid var(--line);
-    border-left: 0;
-  }
-
-  .interest-grid span {
-    margin-bottom: 22px;
+  .publication {
+    grid-template-columns: 165px minmax(0, 1fr);
+    gap: 24px;
   }
 
   .footer-shell {
@@ -556,7 +566,11 @@ footer {
 
   .publication {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 22px;
+  }
+
+  .publication-thumb {
+    width: min(100%, 360px);
   }
 
   .featured-project {
