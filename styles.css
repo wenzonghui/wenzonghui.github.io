@@ -256,6 +256,10 @@ h3 {
   padding-block: 88px 96px;
 }
 
+#publications {
+  border-top: 1px solid var(--line);
+}
+
 .alt-section {
   border-block: 1px solid var(--line);
   background: var(--wash);
