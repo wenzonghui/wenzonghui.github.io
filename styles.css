@@ -144,15 +144,6 @@ nav a:hover {
   font-weight: 700;
 }
 
-.profile-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  margin-top: 18px;
-  font-size: 0.92rem;
-  font-weight: 650;
-}
-
 .kicker,
 .section-label,
 .publication-type {
@@ -206,6 +197,40 @@ h3 {
 .profile-main > p:not(.kicker, .lead, .stats-note) {
   max-width: 690px;
   color: var(--muted);
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 12px;
+  margin-top: 26px;
+  color: #8b959e;
+  font-family: var(--serif);
+  font-size: 1.08rem;
+}
+
+.contact-link {
+  color: #7d8993;
+  text-decoration: none;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+a.contact-link:hover {
+  color: var(--blue);
+  transform: translateY(-1px);
+}
+
+.contact-link.is-disabled {
+  color: #a1a9b0;
+  cursor: default;
+}
+
+.contact-separator {
+  color: #202a33;
+  font-family: var(--sans);
 }
 
 .academic-stats {
