@@ -43,6 +43,12 @@ a:hover {
   color: var(--blue-dark);
 }
 
+.person-link,
+.person-link:hover {
+  font-weight: inherit;
+  text-decoration: none;
+}
+
 a:focus-visible {
   outline: 3px solid rgba(22, 78, 134, 0.25);
   outline-offset: 4px;
